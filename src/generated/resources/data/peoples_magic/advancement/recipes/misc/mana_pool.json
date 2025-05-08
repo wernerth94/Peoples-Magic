@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_book_of_magic": {
+      "conditions": {
+        "items": [
+          {
+            "items": "peoples_magic:book_of_magic"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "peoples_magic:mana_pool"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_book_of_magic"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "peoples_magic:mana_pool"
+    ]
+  }
+}

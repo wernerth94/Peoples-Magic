@@ -1,0 +1,20 @@
+{
+	"ice_cone_cast": {
+		"subtitle": "sounds.peoples_magic.ice_cone_cast",
+		"sounds": [
+			"peoples_magic:ice_cone"
+		]
+	},
+	"ice_cone_hit": {
+		"subtitle": "sounds.peoples_magic.ice_cone_hit",
+		"sounds": [
+			"peoples_magic:ice_cone_hit"
+		]
+	},
+	"summon_ally": {
+		"subtitle": "sounds.peoples_magic.summon_ally",
+		"sounds": [
+			"peoples_magic:summon_ally"
+		]
+	}
+}

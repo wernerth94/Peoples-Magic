@@ -1,0 +1,49 @@
+{
+  "block.peoples_magic.mana_pool": "Mana Well",
+  "description.peoples_magic.mana_pool_stored_mana": "Mana stored: %d",
+  "config.jade.plugin_peoples_magic.jade_mana_pool": "Peoples Magic Mana Pool",
+
+  "item.peoples_magic.book_of_magic": "Book of Magic",
+  "item.peoples_magic.suspicious_tome": "Suspicious Tome",
+  "item.peoples_magic.tome_of_absorption": "Tome of Absorption",
+  "item.peoples_magic.tome_of_fireball": "Tome of Fireball",
+  "item.peoples_magic.tome_of_ice_cone": "Tome of Ice Cone",
+  "item.peoples_magic.tome_of_aether_grip": "Tome of Aether Grip",
+  "item.peoples_magic.tome_of_haste": "Tome of Haste",
+  "item.peoples_magic.tome_of_farming": "Tome of Farming",
+  "item.peoples_magic.tome_of_repel": "Tome of Repel",
+  "item.peoples_magic.tome_of_summon_ally": "Tome of Summon Ally",
+
+  "item.minecraft.potion.effect.Mana Potion": "Mana Potion",
+
+  "effect.peoples_magic.mana_potion": "Restores 50 mana",
+  "effect.peoples_magic.absolute_zero": "Absolute Zero",
+  "effect.peoples_magic.apply_stasis": "Stasis",
+
+  "enchantment.peoples_magic.max_mana": "Max Mana",
+  "enchantment.peoples_magic.mana_regen": "Mana Regen",
+  "enchantment.peoples_magic.mana_leech": "Mana Leech",
+
+  "key.categories.peoples_magic": "Peoples Magic",
+  "key.peoples_magic.spell_absorption_mapping": "Absorption",
+  "key.peoples_magic.spell_aether_grip_mapping": "Aether Grip",
+  "key.peoples_magic.spell_farming_mapping": "Farming",
+  "key.peoples_magic.spell_fireball_mapping": "Fireball",
+  "key.peoples_magic.spell_haste_mapping": "Haste",
+  "key.peoples_magic.spell_ice_cone_mapping": "Ice Cone",
+  "key.peoples_magic.spell_repel_mapping": "Repel",
+  "key.peoples_magic.spell_summon_ally_mapping": "Summon Ally",
+
+  "tooltip.peoples_magic.mana_potion.tooltip": "This potion restores 50 mana",
+  "menu.title.peoples_magic.book_of_magic": "The Book of Magic",
+
+  "creativetab.peoples_magic.peoples_magic_tab": "Peoples Magic",
+
+  "entity.peoples_magic.blazen_knight": "Blazen Knight",
+  "entity.peoples_magic.sky_scourge": "Scourge of the Skies",
+  "entity.peoples_magic.forest_guardian": "Guardian of the Forest",
+
+  "sounds.peoples_magic.ice_cone_cast": "Ice Cone Cast",
+  "sounds.peoples_magic.ice_cone_hit": "Ice Cone Hit",
+  "sounds.peoples_magic.summon_ally": "Summon Ally"
+}

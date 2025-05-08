@@ -1,0 +1,14 @@
+{
+  "type": "peoples_magic:add_item_modifier",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/jungle_temple"
+    },
+    {
+      "chance": 1.0,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "peoples_magic:tome_of_haste"
+}

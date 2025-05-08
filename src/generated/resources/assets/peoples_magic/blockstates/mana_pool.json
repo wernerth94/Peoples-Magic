@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "mana_well_fill_level=0": {
+      "model": "peoples_magic:block/mana_pool_0"
+    },
+    "mana_well_fill_level=1": {
+      "model": "peoples_magic:block/mana_pool_1"
+    },
+    "mana_well_fill_level=2": {
+      "model": "peoples_magic:block/mana_pool_2"
+    },
+    "mana_well_fill_level=3": {
+      "model": "peoples_magic:block/mana_pool_3"
+    },
+    "mana_well_fill_level=4": {
+      "model": "peoples_magic:block/mana_pool_4"
+    },
+    "mana_well_fill_level=5": {
+      "model": "peoples_magic:block/mana_pool_5"
+    }
+  }
+}

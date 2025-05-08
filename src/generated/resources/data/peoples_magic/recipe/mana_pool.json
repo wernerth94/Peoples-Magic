@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:heart_of_the_sea",
+    "B": "minecraft:polished_deepslate_slab"
+  },
+  "pattern": [
+    "   ",
+    "BAB",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "peoples_magic:mana_pool"
+  }
+}

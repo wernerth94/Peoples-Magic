@@ -1,0 +1,35 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.peoples_magic.max_mana"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 10.0,
+          "per_level_above_first": 10.0
+        },
+        "attribute": "peoples_magic:max_mana",
+        "id": "peoples_magic:enchantment.max_mana",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "exclusive_set": "#peoples_magic:mana_enchantment",
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 8
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 7
+}

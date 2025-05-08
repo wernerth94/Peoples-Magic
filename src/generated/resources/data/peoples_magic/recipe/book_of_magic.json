@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:leather",
+    "minecraft:paper",
+    "minecraft:red_mushroom"
+  ],
+  "result": {
+    "count": 1,
+    "id": "peoples_magic:book_of_magic"
+  }
+}

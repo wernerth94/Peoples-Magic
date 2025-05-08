@@ -1,0 +1,50 @@
+{
+	"type": "minecraft:entity",
+	"pools": [
+		{
+			"rolls": 2,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_absorption",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_fireball",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_ice_cone",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_aether_grip",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_repel",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_haste",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_farming",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_summon_ally",
+					"weight": 1
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "peoples_magic:add_item_modifier",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+    },
+    {
+      "chance": 0.6,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "peoples_magic:tome_of_absorption"
+}

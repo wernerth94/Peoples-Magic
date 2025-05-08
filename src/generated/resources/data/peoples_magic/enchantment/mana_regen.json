@@ -1,0 +1,35 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.peoples_magic.mana_regen"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.15,
+          "per_level_above_first": 0.15
+        },
+        "attribute": "peoples_magic:mana_regen",
+        "id": "peoples_magic:enchantment.mana_regen",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "exclusive_set": "#peoples_magic:mana_enchantment",
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 8
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 7
+}

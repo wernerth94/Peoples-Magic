@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "peoples_magic:item/suspicious_tome"
+  }
+}

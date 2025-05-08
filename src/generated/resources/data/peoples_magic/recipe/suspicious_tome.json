@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:leather",
+    "minecraft:paper",
+    "minecraft:lapis_lazuli"
+  ],
+  "result": {
+    "count": 1,
+    "id": "peoples_magic:suspicious_tome"
+  }
+}
