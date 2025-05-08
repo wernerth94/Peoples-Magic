@@ -1,6 +1,5 @@
 package de.peoples_magic.overlays;
 
-import de.peoples_magic.PeoplesMagicMod;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

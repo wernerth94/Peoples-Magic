@@ -1,8 +1,5 @@
 package de.peoples_magic.overlays;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import de.peoples_magic.Config;
-import de.peoples_magic.PeoplesMagicMod;
 import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.attributes.ModAttributes;
@@ -12,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;

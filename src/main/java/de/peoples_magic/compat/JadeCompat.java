@@ -1,7 +1,6 @@
 package de.peoples_magic.compat;
 
 
-import de.peoples_magic.block.ManaPoolBlock;
 import de.peoples_magic.block.ModBlocks;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;

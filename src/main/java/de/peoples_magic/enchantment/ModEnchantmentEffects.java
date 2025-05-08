@@ -5,7 +5,6 @@ import de.peoples_magic.PeoplesMagicMod;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;

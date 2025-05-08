@@ -1,6 +1,5 @@
 package de.peoples_magic.attributes;
 
-import de.peoples_magic.Config;
 import de.peoples_magic.PeoplesMagicMod;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.attributes.Attribute;
