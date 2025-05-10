@@ -162,5 +162,17 @@ public class PeoplesMagicPayloadRegistrar {
                 DisplayMessagePayload.STREAM_CODEC,
                 new MainThreadPayloadHandler<>(DisplayMessageClientHandler::handleDataOnMain)
         );
+
+        registrar.playToClient(
+                NoManaPayload.TYPE,
+                NoManaPayload.STREAM_CODEC,
+                new MainThreadPayloadHandler<>(NoManaClientHandler::handleDataOnMain)
+        );
+
+        registrar.playToClient(
+                ActiveSpellCDPayload.TYPE,
+                ActiveSpellCDPayload.STREAM_CODEC,
+                new MainThreadPayloadHandler<>(ActiveCDClientHandler::handleDataOnMain)
+        );
     }
 }

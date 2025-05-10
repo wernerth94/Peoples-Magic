@@ -26,6 +26,10 @@ public class SpellHasteServerHandler {
                         SpellUtil.set_haste_is_active((ServerPlayer) player, true);
                         player.setData(ModAttachments.HASTE_LAST_REFRESHED, 1000); // turn effect on in the same server tick
                     }
+                    else {
+                        SpellUtil.spell_fail_sound(player);
+                        SpellUtil.spell_fail_indicators((ServerPlayer) player, "haste", player_mana >= 1, spell_cd == 0.0f);
+                    }
                 }
                 else {
                     // Turn off

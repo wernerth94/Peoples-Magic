@@ -23,18 +23,24 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.TransparentBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 
-public class ManaPoolBlock extends TransparentBlock {
+public class ManaPoolBlock extends TransparentBlock implements EntityBlock {
     public static final MapCodec<ManaPoolBlock> CODEC = simpleCodec(ManaPoolBlock::new);
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 7, 16);
 
@@ -45,6 +51,25 @@ public class ManaPoolBlock extends TransparentBlock {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(MANA_STORED, Integer.valueOf(0)));
         this.registerDefaultState(this.stateDefinition.any().setValue(FILL_LEVEL, Integer.valueOf(0)));
+    }
+
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new ManaPoolBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        if (blockEntityType == ModBlockEntities.MANA_POOL_BLOCK_ENTITY.get()) {
+            return (lvl, pos, st, be) -> ManaPoolBlockEntity.tick(lvl, pos, st, (ManaPoolBlockEntity) be);
+        }
+        return EntityBlock.super.getTicker(level, state, blockEntityType);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> GameEventListener getListener(ServerLevel level, T blockEntity) {
+        return EntityBlock.super.getListener(level, blockEntity);
     }
 
 
@@ -63,7 +88,7 @@ public class ManaPoolBlock extends TransparentBlock {
                 try_fill_bottle(stack, state, level, player, pos);
             }
             else if (stack.getItem() == Items.COAL) {
-                change_stored_mana(state, level, pos, Config.mana_well_mana_per_tick);
+                change_stored_mana(state, level, pos, 20);
             } else {
                 refill_players_mana(state, level, pos, player);
             }
@@ -71,12 +96,12 @@ public class ManaPoolBlock extends TransparentBlock {
         return InteractionResult.SUCCESS;
     }
 
-    @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!level.isClientSide()) {
-            change_stored_mana(state, level, pos, Config.mana_well_mana_per_tick);
-        }
-    }
+//    @Override
+//    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+//        if (!level.isClientSide()) {
+//            change_stored_mana(state, level, pos, Config.mana_well_mana_per_tick);
+//        }
+//    }
 
 
     private void try_fill_bottle(ItemStack stack, BlockState state, Level level, Player player, BlockPos pos) {
@@ -87,25 +112,23 @@ public class ManaPoolBlock extends TransparentBlock {
             ItemStack potion = PotionContents.createItemStack(Items.POTION, ModPotions.MANA_POTION);
             player.getInventory().add(potion);
             change_stored_mana(state, level, pos, -50);
+            player.level().playSound(null, player.blockPosition(),
+                    SoundEvents.BREWING_STAND_BREW, SoundSource.PLAYERS,
+                    1f, 1f);
         }
     }
 
 
-    private void change_stored_mana(BlockState state, Level level, BlockPos pos, int amount) {
+    public void change_stored_mana(BlockState state, Level level, BlockPos pos, int amount) {
         int mana_stored = state.getValue(MANA_STORED);
-        mana_stored += amount;
-        mana_stored = Math.min(Math.max(mana_stored, 0), 100);
-        BlockState blockstate = state.setValue(MANA_STORED, mana_stored);
-        blockstate = set_fill_level(blockstate);
-        level.setBlockAndUpdate(pos, blockstate);
-        level.playSound(
-                null,
-                pos,
-                SoundEvents.BOAT_PADDLE_WATER,
-                SoundSource.BLOCKS,
-                1.0F,
-                2.0F
-        );
+        if ((amount > 0 && mana_stored < 100) ||
+            (amount < 0 && mana_stored > 0)) {
+            mana_stored += amount;
+            mana_stored = Math.min(Math.max(mana_stored, 0), 100);
+            BlockState blockstate = state.setValue(MANA_STORED, mana_stored);
+            blockstate = set_fill_level(blockstate);
+            level.setBlockAndUpdate(pos, blockstate);
+        }
     }
 
     private BlockState set_fill_level(BlockState state) {
@@ -132,10 +155,18 @@ public class ManaPoolBlock extends TransparentBlock {
         double current_player_mana = player.getData(ModAttachments.PLAYER_MANA);
         double usable_mana_in_well = Math.floor(mana_stored);
         double transferable_amount = Math.min(player.getAttributeValue(ModAttributes.MAX_MANA) - current_player_mana, usable_mana_in_well);
-
-        Util.update_player_mana(player, current_player_mana + transferable_amount);
-//        PeoplesMagicMod.LOGGER.info("Stored mana reduced from {} to {}", state.getValue(MANA_STORED), mana_stored);
-        change_stored_mana(state, level, pos, (int) -transferable_amount);
+        if (transferable_amount > 0) {
+            Util.update_player_mana(player, current_player_mana + transferable_amount);
+            change_stored_mana(state, level, pos, (int) -transferable_amount);
+            level.playSound(
+                    null,
+                    pos,
+                    SoundEvents.BOAT_PADDLE_WATER,
+                    SoundSource.BLOCKS,
+                    0.8F,
+                    2.0F
+            );
+        }
     }
 
 

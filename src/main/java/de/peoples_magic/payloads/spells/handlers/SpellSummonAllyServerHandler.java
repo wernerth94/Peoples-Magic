@@ -47,6 +47,10 @@ public class SpellSummonAllyServerHandler {
                     player.level().playSound(null, player.blockPosition(),
                             ModSounds.SUMMON_ALLY.get(), SoundSource.PLAYERS, 1.2f, 1f);
                 }
+                else {
+                    SpellUtil.spell_fail_sound(player);
+                    SpellUtil.spell_fail_indicators((ServerPlayer) player, "summon_ally", player_mana >= cost, spell_cd == 0.0f);
+                }
             }
         }
     }

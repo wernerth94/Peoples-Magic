@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class AetherGripRenderer extends EntityRenderer<AetherGripProjectile, AetherGripRenderState> {
-    private static final float MIN_CAMERA_DISTANCE_SQUARED = Mth.square(1F);
+    private static final float MIN_CAMERA_DISTANCE_SQUARED = Mth.square(1.3F);
     private final AetherGripProjectileModel model;
 
     public AetherGripRenderer(EntityRendererProvider.Context context) {
@@ -50,17 +50,17 @@ public class AetherGripRenderer extends EntityRenderer<AetherGripProjectile, Aet
     }
 
     public void render(AetherGripRenderState state, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        if (!(state.camera_dist_sqr < (double)MIN_CAMERA_DISTANCE_SQUARED)) {
             poseStack.pushPose();
             poseStack.mulPose(Axis.YP.rotationDegrees(state.y_rot));
             poseStack.mulPose(Axis.XP.rotationDegrees(state.x_rot));
 
             poseStack.translate(0f, -0.8f, 0f);
-            VertexConsumer vertex_consumer = ItemRenderer.getFoilBuffer(buffer,
-                    this.model.renderType(AetherGripProjectileModel.TEXTURE_LOCATION), false, false);
-            this.model.renderToBuffer(poseStack, vertex_consumer, packedLight, OverlayTexture.NO_OVERLAY);
+            if (state.camera_dist_sqr > (double)MIN_CAMERA_DISTANCE_SQUARED) {
+                VertexConsumer vertex_consumer = ItemRenderer.getFoilBuffer(buffer,
+                        this.model.renderType(AetherGripProjectileModel.TEXTURE_LOCATION), false, false);
+                this.model.renderToBuffer(poseStack, vertex_consumer, packedLight, OverlayTexture.NO_OVERLAY);
+            }
             poseStack.popPose();
             super.render(state, poseStack, buffer, packedLight);
-        }
     }
 }

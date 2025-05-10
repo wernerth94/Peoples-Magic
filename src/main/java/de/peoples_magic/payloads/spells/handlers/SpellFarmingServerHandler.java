@@ -7,6 +7,8 @@ import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.payloads.spells.CastFarmingPayload;
 import de.peoples_magic.payloads.spells.CastHastePayload;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -24,6 +26,10 @@ public class SpellFarmingServerHandler {
                     float spell_cd = player.getData(ModAttachments.HASTE_ACTIVE_CD.get());
                     if (Config.test_mode || spell_cd == 0.0f) {
                         SpellUtil.set_farming_is_active((ServerPlayer) player, true);
+                    }
+                    else {
+                        SpellUtil.spell_fail_sound(player);
+                        SpellUtil.spell_fail_indicators((ServerPlayer) player, "farming", true, spell_cd == 0.0f);
                     }
                 }
                 else {

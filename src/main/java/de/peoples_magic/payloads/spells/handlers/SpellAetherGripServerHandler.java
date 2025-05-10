@@ -49,6 +49,10 @@ public class SpellAetherGripServerHandler {
                         player.level().playSound(null, player.blockPosition(),
                                 SoundEvents.TRIDENT_THROW.value(), SoundSource.PLAYERS, 0.6f, 0.1f);
                     }
+                    else {
+                        SpellUtil.spell_fail_sound(player);
+                        SpellUtil.spell_fail_indicators((ServerPlayer) player, "aether_grip", player_mana >= cost, spell_cd == 0.0f);
+                    }
                 }
             }
         }

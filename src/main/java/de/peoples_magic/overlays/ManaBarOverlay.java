@@ -20,6 +20,11 @@ public class ManaBarOverlay implements LayeredDraw.Layer {
     public static final ManaBarOverlay instance = new ManaBarOverlay();
     static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
     public final static ResourceLocation TEXTURE = Util.rec_loc("textures/gui/mana_bar_icons.png");
+    private long no_mana_flash_start_time;
+
+    public void no_mana_flash() {
+        this.no_mana_flash_start_time = System.currentTimeMillis();
+    }
 
 
     @Override
@@ -42,14 +47,19 @@ public class ManaBarOverlay implements LayeredDraw.Layer {
         int bar_x = x_offset;
         int bar_y = display_height - bar_height - y_offset;
 
-//        RenderSystem.enableBlend();
-//        RenderSystem.defaultBlendFunc();
         // Background
         guiGraphics.blit(RenderType::guiTextured, TEXTURE, bar_x, bar_y, 0, 59, bar_width, bar_height, texture_width, texture_height);
         // Bar Content
         guiGraphics.blit(RenderType::guiTextured, TEXTURE, bar_x, bar_y, 0, 20, adjusted_bar_width, bar_height, texture_width, texture_height);
-//        RenderSystem.disableBlend();
-
+        // No Mana Flash
+        long currentTime = System.currentTimeMillis();
+        long elapsedTime = currentTime - no_mana_flash_start_time;
+        if (elapsedTime <= 400) {
+            int color = 0xFFFF0000;
+            int alpha = (int)(1f - (elapsedTime / 400.0) * 0xFF);
+            color = (color & 0x00FFFFFF) | ((alpha & 0xFF) << 24);
+            Util.draw_box(guiGraphics, bar_x, bar_y-2, bar_x + bar_width, bar_y + bar_height, color);
+        }
 
         int textX = x_offset + bar_width / 2;
         int textY = display_height - bar_height - y_offset - 9;

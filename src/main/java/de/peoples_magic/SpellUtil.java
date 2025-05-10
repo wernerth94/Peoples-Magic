@@ -449,4 +449,19 @@ public class SpellUtil {
     public static int get_summon_ally_level(Player player) {
         return level_from_progression(Config.summon_ally_progression, player.getData(SUMMON_ALLY_SUMMONS));
     }
+
+    public static void spell_fail_sound(Player player) {
+        player.level().playSound(null, player.blockPosition(),
+                    SoundEvents.DYE_USE, SoundSource.PLAYERS,
+                    0.5f, 2f);
+    }
+
+    public static void spell_fail_indicators(ServerPlayer server_player, String spell_name, boolean enough_mana, boolean no_cd) {
+        if (!enough_mana) {
+            PacketDistributor.sendToPlayer(server_player, new NoManaPayload(false));
+        }
+        if (!no_cd) {
+            PacketDistributor.sendToPlayer(server_player, new ActiveSpellCDPayload(spell_name));
+        }
+    }
 }

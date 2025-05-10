@@ -8,6 +8,7 @@ import de.peoples_magic.effect.ModEffects;
 import de.peoples_magic.payloads.spells.CastAbsorptionPayload;
 import de.peoples_magic.payloads.spells.CastRepelPayload;
 import de.peoples_magic.sound.ModSounds;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -48,6 +49,10 @@ public class SpellRepelServerHandler {
                         context.player().addEffect(new MobEffectInstance(ModEffects.LIGHTNING_STORM_EFFECT, (int)(duration_sec * 20f), 1,
                                 false, false, true));
                     }
+                }
+                else {
+                    SpellUtil.spell_fail_sound(player);
+                    SpellUtil.spell_fail_indicators((ServerPlayer) player, "repel", player_mana >= cost, spell_cd == 0.0f);
                 }
             }
         }

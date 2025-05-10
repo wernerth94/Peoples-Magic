@@ -15,7 +15,7 @@ public class Config
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     private static final ModConfigSpec.IntValue TEST_MODE = BUILDER.
-            defineInRange("test_mode", 1, 0, 1);
+            defineInRange("test_mode", 0, 0, 1);
 
 //    private static final ModConfigSpec.DoubleValue MAX_MANA = BUILDER
 //            .comment("Maximum amount of mana players can hold. Negative mana is not allowed")
@@ -23,9 +23,9 @@ public class Config
 //    private static final ModConfigSpec.DoubleValue BASE_MANA_REGENERATION = BUILDER
 //            .comment("Amount of mana players naturally regenerates per second")
 //            .defineInRange("base_mana_regeneration", 0.25F, 0, Double.MAX_VALUE);  // 0.25 mana / s
-    private static final ModConfigSpec.IntValue MANA_WELL_MANA_PER_RANDOM_TICK = BUILDER
-            .comment("Amount of mana mana pools gain per random tick")
-            .defineInRange("mana_well_mana_per_tick", 20, 0, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue MANA_WELL_MANA_PER_SECOND = BUILDER
+            .comment("Amount of mana mana pools gain per second")
+            .defineInRange("mana_well_mana_per_second", 0.33f, 0.2f, 20f);
     private static final ModConfigSpec.IntValue MANA_POTION_MANA_AMOUNT = BUILDER
             .comment("Amount of mana mana potions grants players")
             .defineInRange("mana_potion_mana_amount", 50, 0, Integer.MAX_VALUE);
@@ -202,7 +202,7 @@ public class Config
     public static int sky_scourge_attack;
 
 
-    public static int mana_well_mana_per_tick;
+    public static double mana_well_mana_per_second;
     public static int mana_potion_mana_amount;
     public static double max_mana_per_enchant_level;
     public static double mana_regen_per_enchant_level;
@@ -267,7 +267,7 @@ public class Config
         sky_scourge_health = SKY_SCOURGE_HEALTH.get();
         sky_scourge_attack = SKY_SCOURGE_ATTACK.get();
 
-        mana_well_mana_per_tick = MANA_WELL_MANA_PER_RANDOM_TICK.get();
+        mana_well_mana_per_second = MANA_WELL_MANA_PER_SECOND.get();
         mana_potion_mana_amount = MANA_POTION_MANA_AMOUNT.get();
         max_mana_per_enchant_level = MAX_MANA_PER_ENCHANT_LEVEL.get();
         mana_regen_per_enchant_level = MANA_REGEN_PER_ENCHANT_LEVEL.get();

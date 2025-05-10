@@ -1,10 +1,12 @@
 package de.peoples_magic.payloads.spells.handlers;
 
 import de.peoples_magic.Config;
+import de.peoples_magic.SpellUtil;
 import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.entity.spells.FireballProjectile;
 import de.peoples_magic.payloads.spells.CastFireballPayload;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +24,7 @@ public class SpellFireballServerHandler {
                 int spell_level = Util.level_from_progression(Config.fireball_progression, player.getData(ModAttachments.FIREBALL_HITS));
                 int player_mana = player.getData(ModAttachments.PLAYER_MANA.get()).intValue();
                 float spell_cd = player.getData(ModAttachments.FIREBALL_ACTIVE_CD.get());
-                int cost = Util.get_or_last(Config.absorption_cost, spell_level);
+                int cost = Util.get_or_last(Config.fireball_cost, spell_level);
                 if (Config.test_mode || (player_mana >= cost && spell_cd == 0.0f)) {
                     FireballProjectile projectile = new FireballProjectile(player, level, spell_level, 20 * 10);
 
@@ -38,6 +40,10 @@ public class SpellFireballServerHandler {
                     }
                     level.playSound(null, player.position().x, player.position().y, player.position().z,
                             SoundEvents.WIND_CHARGE_BURST, SoundSource.PLAYERS, 0.5f, 0.8f);
+                }
+                else {
+                    SpellUtil.spell_fail_sound(player);
+                    SpellUtil.spell_fail_indicators((ServerPlayer) player, "fireball", player_mana >= cost, spell_cd == 0.0f);
                 }
             }
         }

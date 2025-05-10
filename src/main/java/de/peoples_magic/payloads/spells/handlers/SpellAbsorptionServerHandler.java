@@ -1,10 +1,14 @@
 package de.peoples_magic.payloads.spells.handlers;
 
 import de.peoples_magic.Config;
+import de.peoples_magic.SpellUtil;
 import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.effect.ModEffects;
 import de.peoples_magic.payloads.spells.CastAbsorptionPayload;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -44,6 +48,12 @@ public class SpellAbsorptionServerHandler {
                         Util.set_cooldown(player, ModAttachments.ABSORPTION_ACTIVE_CD.get(), Util.get_or_last(Config.absorption_cds, spell_level));
                     }
                     player.setData(ModAttachments.LAST_ABSORPTION_CAST, System.currentTimeMillis());
+                    player.level().playSound(null, player.blockPosition(),
+                            SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 0.5f, 1.9f);
+                }
+                else {
+                    SpellUtil.spell_fail_sound(player);
+                    SpellUtil.spell_fail_indicators((ServerPlayer) player, "absorption", player_mana >= cost, spell_cd == 0.0f);
                 }
             }
         }

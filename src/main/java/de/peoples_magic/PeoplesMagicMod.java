@@ -2,6 +2,7 @@ package de.peoples_magic;
 
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.attributes.ModAttributes;
+import de.peoples_magic.block.ModBlockEntities;
 import de.peoples_magic.block.ModBlockStateProperties;
 import de.peoples_magic.block.ModBlocks;
 import de.peoples_magic.effect.ModEffects;
@@ -70,6 +71,7 @@ public class PeoplesMagicMod
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
         ModAttachments.register(modEventBus);
         ModEffects.register(modEventBus);

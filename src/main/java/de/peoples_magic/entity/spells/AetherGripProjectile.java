@@ -118,7 +118,6 @@ public class AetherGripProjectile extends Entity {
         }
 
         if (!this.level().isClientSide) {
-
             // reverse based on distance or early trigger by player
             double distance_to_reversal = this.position().subtract(reversal_point).length();
             if (!this.already_reversed && !this.level().isClientSide) {
@@ -139,7 +138,7 @@ public class AetherGripProjectile extends Entity {
                 Vec3 delta_vec3 = this.reversal_point.subtract(this.position()).normalize();
                 // slow down when approaching furthest point
                 double distance = delta_vec3.length();
-                double new_speed = Math.min(1.0, Math.log10(0.1F * distance + 0.05F) + 1.32F);
+                double new_speed = Math.max(0, Math.min(1.0, Math.log10(0.1F * distance + 0.05F) + 1.32F));
                 // we need to deepcopy this, or the speed multipliers stack
                 delta_vec3 = delta_vec3.scale(new_speed);
                 this.setDeltaMovement(delta_vec3);
