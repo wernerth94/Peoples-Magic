@@ -5,7 +5,7 @@ Don't use this code for reference much, I am new to this :D
 # Documentation
 
 ## Configuration
-Many aspects about the mod can be configured in the ``peoples_magic-common.toml`` config file.
+Many aspects about the mod can be configured in the ``peoples_magic-common.toml`` config file. \
 This includes:
 - mana cost and other aspects of spells
 - the progression threshold for each spell
