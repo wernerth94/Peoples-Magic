@@ -87,7 +87,7 @@ public class ManaPoolBlock extends TransparentBlock implements EntityBlock {
             if (stack.getItem() == Items.GLASS_BOTTLE) {
                 try_fill_bottle(stack, state, level, player, pos);
             }
-            else if (stack.getItem() == Items.COAL) {
+            else if (stack.getItem() == Items.COAL && Config.test_mode) {
                 change_stored_mana(state, level, pos, 20);
             } else {
                 refill_players_mana(state, level, pos, player);
