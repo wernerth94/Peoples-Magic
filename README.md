@@ -3,6 +3,7 @@
 Don't use this code for reference much, I am new to this :D
 
 # Documentation
+This mod works with Jade, so feel free to add Jade to your mod list for some visual indicators.
 
 ## Configuration
 Many aspects about the mod can be configured in the ``peoples_magic-common.toml`` config file. \
