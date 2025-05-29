@@ -35,7 +35,7 @@ public class SpellAbsorptionServerHandler {
                         context.player().addEffect(new MobEffectInstance(ModEffects.THORNS_EFFECT, (int)(duration_s * 1.5 * 20f), 1,
                                 false, false, true));
                     } else if (knowledge == 4) {
-                        context.player().addEffect(new MobEffectInstance(MobEffects.SLOWNESS, (int)(duration_s * 1.5 * 20f), 1,
+                        context.player().addEffect(new MobEffectInstance(MobEffects.SPEED, (int)(duration_s * 1.5 * 20f), 1,
                                 false, false, true));
                     }
 

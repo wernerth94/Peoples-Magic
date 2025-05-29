@@ -86,7 +86,7 @@ public class ModAttachments {
     public static final Supplier<AttachmentType<Float>> HASTE_ACTIVE_CD = ATTACHMENT_TYPES.register(
             "haste_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> HASTE_UPTIME = ATTACHMENT_TYPES.register(
-            "haste_uptime", () -> AttachmentType.builder(() -> 0f).serialize(Codec.FLOAT).build());
+            "haste_uptime", () -> AttachmentType.builder(() -> 0f).serialize(Codec.FLOAT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Boolean>> HASTE_IS_ACTIVE = ATTACHMENT_TYPES.register(
             "haste_is_active", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build());
     public static final Supplier<AttachmentType<Integer>> HASTE_LAST_REFRESHED = ATTACHMENT_TYPES.register(

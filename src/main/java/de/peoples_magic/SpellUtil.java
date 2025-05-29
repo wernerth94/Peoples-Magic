@@ -114,7 +114,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new AbsorptionMitigationPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Absorption is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
@@ -129,7 +128,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new RepelSpidersPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Repel is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
@@ -144,7 +142,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new FireballHitPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Fireball is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
@@ -159,7 +156,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new AetherGripPullsPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Aether Grip is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
@@ -174,7 +170,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new IceConeHitsPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Ice Cone is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
@@ -189,7 +184,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new HasteUptimePayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Haste is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
@@ -204,7 +198,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new SummonAllySummonsPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Summon Ally is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
@@ -224,7 +217,6 @@ public class SpellUtil {
         PacketDistributor.sendToPlayer(player, new FarmingAnimalsBredPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Farming is now level %d", new_level), 4000));
-//            FadingMessageOverlay.instance.show_message(, 4000);
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
