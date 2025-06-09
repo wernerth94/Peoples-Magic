@@ -6,6 +6,7 @@ import de.peoples_magic.Util;
 import de.peoples_magic.entity.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -60,6 +61,7 @@ public class BlazenKnight extends WitherSkeleton {
     private int cant_reach_count;
     private int ticks_since_last_shot;
     private boolean setup_done;
+    private int ticks_alive;
 
     private enum AIState {
         IDLE, CHARGING, RETREATING, SHOOTING
@@ -74,6 +76,7 @@ public class BlazenKnight extends WitherSkeleton {
         this.state = AIState.IDLE;
         this.cant_reach_count = 0;
         this.ticks_since_last_shot = 0;
+        this.ticks_alive = 0;
 
         ArrayList<DyeItem> dye_list = Lists.newArrayList();
         dye_list.add((DyeItem) Items.RED_DYE);
@@ -120,7 +123,6 @@ public class BlazenKnight extends WitherSkeleton {
             SkeletonHorse skelly_horse = new SkeletonHorse(EntityType.SKELETON_HORSE, level);
             skelly_horse.setTamed(true);
             skelly_horse.equipItemIfPossible(level, new ItemStack(Items.SADDLE));
-//            skelly_horse.equipSaddle(new ItemStack(Items.SADDLE), null);
             skelly_horse.setPos(this.position());
             AttributeInstance speedAttribute = skelly_horse.getAttribute(Attributes.MOVEMENT_SPEED);
             speedAttribute.setBaseValue(0.4F);
@@ -130,9 +132,18 @@ public class BlazenKnight extends WitherSkeleton {
             this.setup_done = true;
         }
 
+        ticks_alive++;
+        if (ticks_alive > 20 * 60 * 5) {
+            // kill after 5 minutes and when no target is active
+            if (this.target == null) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+        }
+
         if (!canUse()) {
             return;
         }
+        ticks_alive = 0;
 
         float percent_health = this.getHealth() / this.getMaxHealth();
         if (this.phase == 1 && percent_health <= 0.5) {
@@ -254,6 +265,10 @@ public class BlazenKnight extends WitherSkeleton {
         }
     }
 
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 
     private boolean horse_alive() {
         return this.horse != null && !this.horse.isRemoved();
@@ -304,7 +319,7 @@ public class BlazenKnight extends WitherSkeleton {
                 return false;
             }
         }
-        return level.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(type, level, spawnType, pos, random);
+        return level.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(EntityType.COW, level, spawnType, pos, random);
     }
 
     @Override
@@ -326,5 +341,27 @@ public class BlazenKnight extends WitherSkeleton {
         this.boss_event.setProgress(percent_health);
     }
 
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("phase")) {
+            this.phase = compound.getIntOr("phase", 0);
+        }
+        if(compound.contains("ticks_alive")) {
+            this.ticks_alive = compound.getIntOr("ticks_alive", 0);
+        }
+        if(compound.contains("setup_done")) {
+            this.setup_done = compound.getBooleanOr("setup_done", false);
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("phase", this.phase);
+        compound.putInt("ticks_alive", ticks_alive);
+        compound.putBoolean("setup_done", setup_done);
+    }
 
 }

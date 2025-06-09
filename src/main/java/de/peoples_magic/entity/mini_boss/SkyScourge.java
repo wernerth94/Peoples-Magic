@@ -70,6 +70,7 @@ public class SkyScourge extends Phantom {
     private int ticks_since_last_attack;
     private int charge_attack_counter;
     private int charge_attack_timer;
+    private int ticks_alive;
 
     private enum AIState {
         CIRCLE, CHARGING, RETREATING
@@ -83,6 +84,7 @@ public class SkyScourge extends Phantom {
         this.circle_angle = 0.0f;
         this.target_conditions = TargetingConditions.forCombat().range(FOLLOW_DISTANCE).selector(null);
         this.moveControl = new SkyScourgeMoveControl(this);
+        this.ticks_alive = 0;
 
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.sky_scourge_health);
         this.setHealth(this.getMaxHealth());
@@ -124,6 +126,14 @@ public class SkyScourge extends Phantom {
             this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 999999999, 2, false, false, false));
         }
 
+        ticks_alive++;
+        if (ticks_alive > 20 * 60 * 5) {
+            // kill after 5 minutes and when no target is active
+            if (this.target == null) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+        }
+
         if (this.isOnFire()) {
             this.extinguishFire();
         }
@@ -149,6 +159,7 @@ public class SkyScourge extends Phantom {
             }
         }
         else if (this.state == AIState.CHARGING) {
+            ticks_alive = 0;
             do_charge();
         }
     }
@@ -340,6 +351,12 @@ public class SkyScourge extends Phantom {
         if (compound.contains("phase")) {
             this.phase = compound.getInt("phase").orElse(0);
         }
+        if(compound.contains("ticks_alive")) {
+            this.ticks_alive = compound.getIntOr("ticks_alive", 0);
+        }
+        if(compound.contains("setup_done")) {
+            this.setup_done = compound.getBooleanOr("setup_done", false);
+        }
     }
 
     @Override
@@ -349,6 +366,8 @@ public class SkyScourge extends Phantom {
         compound.putInt("AY", this.anchor_point.getY());
         compound.putInt("AZ", this.anchor_point.getZ());
         compound.putInt("phase", this.phase);
+        compound.putInt("ticks_alive", ticks_alive);
+        compound.putBoolean("setup_done", setup_done);
     }
 
 

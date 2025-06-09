@@ -68,6 +68,7 @@ public class ForestGuardian extends Creaking {
     private boolean first_tree_search;
     private int stuck_detection_counter;
     private Vec3 last_position;
+    private int ticks_alive;
 
     private enum AIState {
         IDLE, APPROACHING, RETREATING
@@ -79,6 +80,7 @@ public class ForestGuardian extends Creaking {
         this.setup_done = false;
         this.phase = 1;
         this.target_conditions = TargetingConditions.forCombat().ignoreLineOfSight().range(FOLLOW_DISTANCE).selector(null);
+        this.ticks_alive = 0;
 
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.forest_guardian_health);
         this.setHealth(this.getMaxHealth());
@@ -130,6 +132,14 @@ public class ForestGuardian extends Creaking {
 
         }
 
+        ticks_alive++;
+        if (ticks_alive > 20 * 60 * 5) {
+            // kill after 5 minutes and when no target is active
+            if (this.target == null) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+        }
+
         Player next_target = findTarget();
         if (target != null && next_target == null) {
             reset_state();
@@ -137,11 +147,9 @@ public class ForestGuardian extends Creaking {
         }
         this.target = next_target;
 
-//        if (this.phase == 1 && this.getHealth() <= 70) {
-//            this.phase = 2;
-//        }
 
         if (this.target != null) {
+            ticks_alive = 0;
             // Stuck detection
             if (this.position().distanceTo(this.last_position) < 1.5) {
                 stuck_detection_counter++;
@@ -339,6 +347,9 @@ public class ForestGuardian extends Creaking {
         if (compound.contains("phase")) {
             this.phase = compound.getInt("phase").orElse(0);
         }
+        if(compound.contains("ticks_alive")) {
+            this.ticks_alive = compound.getIntOr("ticks_alive", 0);
+        }
     }
 
     @Override
@@ -348,6 +359,7 @@ public class ForestGuardian extends Creaking {
         compound.putInt("AY", this.anchor_point.getY());
         compound.putInt("AZ", this.anchor_point.getZ());
         compound.putInt("phase", this.phase);
+        compound.putInt("ticks_alive", ticks_alive);
     }
 
 
