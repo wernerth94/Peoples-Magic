@@ -116,19 +116,36 @@ public class BlazenKnight extends WitherSkeleton {
                 ;
     }
 
+    private void setup(ServerLevel level) {
+        // fix spawning weirdness, where the Knight can spawn underground
+        if (!level.canSeeSky(this.blockPosition())) {
+            BlockPos above = this.blockPosition().above();
+            while (!level.canSeeSky(above) && above.getY() < 150) {
+                above = above.above();
+            }
+            if (level.canSeeSky(above)) {
+                this.setPos(above.getX() + 0.5, above.getY() + 1, above.getZ() + 0.5);
+            }
+            else {
+                System.out.println("Failed to find a valid spawn position for Blazen Knight");
+            }
+        }
+        SkeletonHorse skelly_horse = new SkeletonHorse(EntityType.SKELETON_HORSE, level);
+        skelly_horse.setTamed(true);
+        skelly_horse.equipItemIfPossible(level, new ItemStack(Items.SADDLE));
+        skelly_horse.setPos(this.position());
+        AttributeInstance speedAttribute = skelly_horse.getAttribute(Attributes.MOVEMENT_SPEED);
+        speedAttribute.setBaseValue(0.4F);
+        level.addFreshEntity(skelly_horse);
+        this.startRiding(skelly_horse);
+        this.horse = skelly_horse;
+    }
+
     @Override
     protected void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
         if (!setup_done) {
-            SkeletonHorse skelly_horse = new SkeletonHorse(EntityType.SKELETON_HORSE, level);
-            skelly_horse.setTamed(true);
-            skelly_horse.equipItemIfPossible(level, new ItemStack(Items.SADDLE));
-            skelly_horse.setPos(this.position());
-            AttributeInstance speedAttribute = skelly_horse.getAttribute(Attributes.MOVEMENT_SPEED);
-            speedAttribute.setBaseValue(0.4F);
-            level.addFreshEntity(skelly_horse);
-            this.startRiding(skelly_horse);
-            this.horse = skelly_horse;
+            setup(level);
             this.setup_done = true;
         }
 
@@ -314,12 +331,15 @@ public class BlazenKnight extends WitherSkeleton {
             EntityType<? extends Monster> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
         BlockPos blockpos = pos.below();
-        for (int i = 1; i <= 3; ++i) {
-            if (!(level.getBlockState(new BlockPos(pos.getX(), blockpos.getY() + i, pos.getZ())).getBlock() instanceof AirBlock)) {
-                return false;
-            }
-        }
-        return level.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(EntityType.COW, level, spawnType, pos, random);
+//        for (int i = 1; i <= 3; ++i) {
+//            if (!(level.getBlockState(new BlockPos(pos.getX(), blockpos.getY() + i, pos.getZ())).getBlock() instanceof AirBlock)) {
+//                return false;
+//            }
+//        }
+
+        return spawnType == EntitySpawnReason.SPAWNER ||
+//                (level.canSeeSky(pos) &&
+                 level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN);
     }
 
     @Override
