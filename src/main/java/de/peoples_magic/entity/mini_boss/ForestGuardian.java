@@ -88,9 +88,6 @@ public class ForestGuardian extends Creaking {
         reset_state();
     }
 
-    protected Optional<ResourceKey<LootTable>> getDefaultLootTable() {
-        return Optional.of(ResourceKey.create(Registries.LOOT_TABLE, Util.rec_loc("entities/forest_guardian")));
-    }
 
     @Override
     protected void registerGoals() {

@@ -92,9 +92,6 @@ public class SkyScourge extends Phantom {
         reset_state();
     }
 
-    protected Optional<ResourceKey<LootTable>> getDefaultLootTable() {
-        return Optional.of(ResourceKey.create(Registries.LOOT_TABLE, Util.rec_loc("entities/sky_scourge")));
-    }
 
     @Override
     protected void registerGoals() {

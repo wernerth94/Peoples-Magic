@@ -291,7 +291,8 @@ public class SpellUtil {
         // early out
         if (block_state.is(Blocks.STONE) ||
                 block_state.is(Blocks.DIRT) ||
-                block_state.is(Blocks.GRASS_BLOCK)) {
+                block_state.is(Blocks.GRASS_BLOCK) ||
+                block_state.is(Blocks.SAND)) {
             return false;
         }
         return block_state.is(BlockTags.COAL_ORES) ||
@@ -355,7 +356,8 @@ public class SpellUtil {
         // early out
         if (block_state.is(Blocks.STONE) ||
             block_state.is(Blocks.DIRT) ||
-            block_state.is(Blocks.GRASS_BLOCK)) {
+            block_state.is(Blocks.GRASS_BLOCK) ||
+            block_state.is(Blocks.SAND)) {
             return false;
         }
 

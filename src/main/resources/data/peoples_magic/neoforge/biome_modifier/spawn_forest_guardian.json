@@ -3,7 +3,15 @@
 	"biomes": [
 		"minecraft:forest",
 		"minecraft:birch_forest",
-		"minecraft:taiga"
+		"minecraft:taiga",
+
+		"biomesoplenty:orchard",
+		"biomesoplenty:auroral_garden",
+		"biomesoplenty:mystic_grove",
+		"biomesoplenty:rainforest",
+		"biomesoplenty:maple_woods",
+		"biomesoplenty:woodland",
+		"biomesoplenty:seasonal_forest"
 	],
 	"spawners": {
 		"type": "peoples_magic:forest_guardian",

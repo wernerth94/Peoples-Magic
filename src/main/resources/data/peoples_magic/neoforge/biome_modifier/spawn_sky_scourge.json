@@ -5,7 +5,10 @@
 		"minecraft:windswept_savanna",
 		"minecraft:savanna_plateau",
 		"minecraft:jagged_peaks",
-		"minecraft:stony_peaks"
+		"minecraft:stony_peaks",
+
+		"biomesoplenty:crag",
+		"biomesoplenty:volcano"
 	],
 	"spawners": {
 		"type": "peoples_magic:sky_scourge",

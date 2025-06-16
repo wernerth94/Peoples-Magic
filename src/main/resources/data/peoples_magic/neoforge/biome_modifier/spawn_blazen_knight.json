@@ -2,7 +2,14 @@
 	"type": "neoforge:add_spawns",
 	"biomes": [
 		"minecraft:plains",
-		"minecraft:savanna"
+		"minecraft:savanna",
+		"minecraft:snowy_plains",
+		"minecraft:windswept_hills",
+
+		"biomesoplenty:prairie",
+		"biomesoplenty:field",
+		"biomesoplenty:shrubland",
+		"biomesoplenty:grassland"
 	],
 	"spawners": {
 		"type": "peoples_magic:blazen_knight",

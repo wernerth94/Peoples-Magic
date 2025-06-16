@@ -191,6 +191,12 @@ public class PeoplesMagicMod
     }
 
     @SubscribeEvent
+    public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
+        ServerPlayer server_player = (ServerPlayer) event.getEntity();
+        Util.sync_all_player_data(server_player);
+    }
+
+    @SubscribeEvent
     public void onPlayerDisconnect(PlayerEvent.PlayerLoggedOutEvent event) {
         if (!event.getEntity().level().isClientSide) {
             SpellUtil.clear_summoned_entities((ServerPlayer) event.getEntity(), (ServerLevel) event.getEntity().level());

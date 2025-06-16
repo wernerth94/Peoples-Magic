@@ -95,10 +95,6 @@ public class BlazenKnight extends WitherSkeleton {
     }
 
 
-    protected Optional<ResourceKey<LootTable>> getDefaultLootTable() {
-        return Optional.of(ResourceKey.create(Registries.LOOT_TABLE, Util.rec_loc("entities/blazen_knight")));
-    }
-
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, (float)FOLLOW_DISTANCE + 5.0f));
