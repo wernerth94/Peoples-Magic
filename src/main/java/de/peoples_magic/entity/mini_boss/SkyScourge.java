@@ -372,7 +372,14 @@ public class SkyScourge extends Phantom {
             EntityType<? extends Mob> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
         BlockPos blockpos = pos.below();
-        return spawnType == EntitySpawnReason.SPAWNER || level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ALLAY);
+        int min_dist = 300;
+        List<SkyScourge> others = level.getEntitiesOfClass(SkyScourge.class, new AABB(pos.getX()-min_dist, pos.getY()-100, pos.getZ()-min_dist,
+                pos.getX()+min_dist, pos.getY()+100, pos.getZ()+min_dist));
+        if (spawnType == EntitySpawnReason.SPAWNER) {
+            return true;
+        }
+        return others.isEmpty() &&
+                level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ALLAY);
     }
 
     class SkyScourgeMoveControl extends MoveControl {

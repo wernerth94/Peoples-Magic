@@ -37,10 +37,12 @@ import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class BlazenKnight extends WitherSkeleton {
@@ -332,10 +334,14 @@ public class BlazenKnight extends WitherSkeleton {
 //                return false;
 //            }
 //        }
-
-        return spawnType == EntitySpawnReason.SPAWNER ||
-//                (level.canSeeSky(pos) &&
-                 level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN);
+        int min_dist = 300;
+        List<BlazenKnight> others = level.getEntitiesOfClass(BlazenKnight.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,
+                pos.getX()+min_dist, pos.getY()+50, pos.getZ()+min_dist));
+        if (spawnType == EntitySpawnReason.SPAWNER) {
+            return true;
+        }
+        return others.isEmpty() &&
+               level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN);
     }
 
     @Override

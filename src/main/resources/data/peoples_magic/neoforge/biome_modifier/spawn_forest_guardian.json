@@ -9,7 +9,9 @@
 		"biomesoplenty:rainforest",
 		"biomesoplenty:maple_woods",
 		"biomesoplenty:woodland",
-		"biomesoplenty:seasonal_forest"
+		"biomesoplenty:seasonal_forest",
+		"biomesoplenty:auroral_garden",
+		"biomesoplenty:mystic_grove"
 	],
 	"spawners": {
 		"type": "peoples_magic:forest_guardian",

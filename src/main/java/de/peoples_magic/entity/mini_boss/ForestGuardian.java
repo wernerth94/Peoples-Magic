@@ -364,6 +364,13 @@ public class ForestGuardian extends Creaking {
             EntityType<? extends Mob> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
         BlockPos blockpos = pos.below();
-        return spawnType == EntitySpawnReason.SPAWNER || level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN);
+        int min_dist = 300;
+        List<ForestGuardian> others = level.getEntitiesOfClass(ForestGuardian.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,
+                pos.getX()+min_dist, pos.getY()+50, pos.getZ()+min_dist));
+        if (spawnType == EntitySpawnReason.SPAWNER) {
+            return true;
+        }
+        return others.isEmpty() &&
+               level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN);
     }
 }
