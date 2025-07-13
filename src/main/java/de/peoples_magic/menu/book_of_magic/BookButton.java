@@ -1,18 +1,19 @@
 package de.peoples_magic.menu.book_of_magic;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.peoples_magic.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
@@ -50,9 +51,8 @@ public abstract class BookButton extends Button {
         Minecraft minecraft = Minecraft.getInstance();
 //        RenderSystem.enableBlend();
 //        RenderSystem.enableDepthTest();
-        guiGraphics.pose().pushPose();
-        guiGraphics.blit(RenderType::guiTextured, BG_TEXTURE, this.getX(), this.getY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
-        guiGraphics.pose().popPose();
+        guiGraphics.nextStratum();
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_TEXTURE, this.getX(), this.getY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
         int i = getFGColor();
         this.renderString(guiGraphics, minecraft.font, i | Mth.ceil(this.alpha * 255.0F) << 24);
     }
@@ -139,7 +139,7 @@ public abstract class BookButton extends Button {
             super.renderWidget(p_295402_, p_295733_, p_294839_, p_296191_);
             int i = this.getX() + this.getWidth() / 2 - this.spriteWidth / 2;
             int j = this.getY() + this.getHeight() / 2 - this.spriteHeight / 2;
-            p_295402_.blitSprite(RenderType::guiTextured, this.sprite, i, j, this.spriteWidth, this.spriteHeight);
+            p_295402_.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, i, j, this.spriteWidth, this.spriteHeight);
         }
 
         @Override
@@ -169,7 +169,7 @@ public abstract class BookButton extends Button {
             int j = this.getY() + this.getHeight() / 2 - this.spriteHeight / 2;
 //            RenderSystem.enableBlend();
 //            RenderSystem.defaultBlendFunc();
-            p_294156_.blit(RenderType::guiTextured, this.sprite, i, j, 0, 0, this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight);
+            p_294156_.blit(RenderPipelines.GUI_TEXTURED, this.sprite, i, j, 0, 0, this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight);
 //            RenderSystem.disableBlend();
         }
 

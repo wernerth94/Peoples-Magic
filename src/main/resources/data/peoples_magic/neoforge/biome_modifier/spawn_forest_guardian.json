@@ -1,18 +1,6 @@
 {
 	"type": "neoforge:add_spawns",
-	"biomes": [
-		"minecraft:forest",
-		"minecraft:birch_forest",
-		"minecraft:taiga",
-
-		"biomesoplenty:orchard",
-		"biomesoplenty:rainforest",
-		"biomesoplenty:maple_woods",
-		"biomesoplenty:woodland",
-		"biomesoplenty:seasonal_forest",
-		"biomesoplenty:auroral_garden",
-		"biomesoplenty:mystic_grove"
-	],
+	"biomes": "#peoples_magic:forest_guardian_spawns",
 	"spawners": {
 		"type": "peoples_magic:forest_guardian",
 		"maxCount": 1,

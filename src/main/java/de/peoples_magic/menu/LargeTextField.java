@@ -1,6 +1,5 @@
 package de.peoples_magic.menu;
 
-import de.peoples_magic.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -14,8 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LargeTextField implements GuiEventListener, Renderable {
-//    protected static final int WHITE = ChatFormatting.DARK_BLUE.getColor();
-    protected static final int WHITE = 0x101010;
+    protected static final int WHITE = 0xFFFFFFFF;
     protected static final Font FONT = Minecraft.getInstance().font;
     protected static final int MAX_LINES = 14;
     private static final float SCALING = 0.7f;
@@ -64,8 +62,8 @@ public class LargeTextField implements GuiEventListener, Renderable {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 //        Util.draw_box(guiGraphics, x, y, max_x, max_y, 0xAFdeb212);
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().scale(SCALING, SCALING, 1f);
+        guiGraphics.nextStratum();
+        guiGraphics.pose().scale(SCALING, SCALING);
         for (int i=current_line; i < Math.min(lines.size(), MAX_LINES+current_line); i++) {
             guiGraphics.drawString(FONT, lines.get(i), m(x), m(y + ((i-current_line) * FONT.lineHeight)), WHITE, false);
         }
@@ -73,7 +71,7 @@ public class LargeTextField implements GuiEventListener, Renderable {
             guiGraphics.drawString(FONT, Component.literal("           << Scroll >>"),
                     m(x), m(y + (MAX_LINES*FONT.lineHeight)), WHITE, false);
         }
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().scale(1f/SCALING, 1f/SCALING);
     }
 
     private int m(int original) {

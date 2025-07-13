@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public abstract class BOMTooltip implements Renderable {
-    protected static final int WHITE = ChatFormatting.WHITE.getColor();
+    protected static final int WHITE = 0xFFFFFFFF;
     protected static final Font FONT = Minecraft.getInstance().font;
     protected static final ResourceLocation BG_TEXTURE = Util.rec_loc("textures/book_of_magic/tooltip_bg.png");
     protected SpellTile spell_tile;

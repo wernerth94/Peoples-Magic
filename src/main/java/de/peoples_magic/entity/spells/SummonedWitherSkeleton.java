@@ -3,7 +3,6 @@ package de.peoples_magic.entity.spells;
 import de.peoples_magic.ai.FollowSummoningPlayerGoal;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -14,8 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-
-import java.util.function.Predicate;
 
 public class SummonedWitherSkeleton extends WitherSkeleton implements SummonedEntity {
     private Player owner = null;

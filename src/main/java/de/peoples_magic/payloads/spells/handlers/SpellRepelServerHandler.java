@@ -5,14 +5,11 @@ import de.peoples_magic.SpellUtil;
 import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.effect.ModEffects;
-import de.peoples_magic.payloads.spells.CastAbsorptionPayload;
 import de.peoples_magic.payloads.spells.CastRepelPayload;
-import de.peoples_magic.sound.ModSounds;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 

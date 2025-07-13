@@ -2,7 +2,6 @@ package de.peoples_magic.item.custom;
 
 import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
-import de.peoples_magic.overlays.FadingMessageOverlay;
 import de.peoples_magic.payloads.sync.DisplayMessagePayload;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;
@@ -21,9 +20,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class SuspiciousTome extends Item implements TooltipProvider {
 

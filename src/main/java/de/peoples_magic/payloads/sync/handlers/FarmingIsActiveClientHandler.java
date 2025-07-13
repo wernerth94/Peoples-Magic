@@ -2,7 +2,6 @@ package de.peoples_magic.payloads.sync.handlers;
 
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.payloads.sync.FarmingIsActivePayload;
-import de.peoples_magic.payloads.sync.HasteIsActivePayload;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class FarmingIsActiveClientHandler {

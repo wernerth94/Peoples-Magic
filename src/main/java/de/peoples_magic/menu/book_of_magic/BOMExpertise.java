@@ -8,7 +8,8 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -69,10 +70,10 @@ public abstract class BOMExpertise implements Renderable, GuiEventListener {
         if (x > parent_x && x + width < parent_max_x && y > parent_y && y + height < parent_max_y) {
             this.active_buttons.add(List.of(x, y, x + width, y + height));
             guiGraphics.fill(x, y, x + width, y + height, selected ? 0x9Fdeb212 : 0x5F000000);
-            guiGraphics.blit(RenderType::guiTextured, texture, x, y, 0, 0, width, height, width, height);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, x, y, 0, 0, width, height, width, height);
             if (mouseX >= x && mouseX <= x + width &&
                     mouseY >= y && mouseY <= y + height) {
-                guiGraphics.renderComponentTooltip(FONT, tooltip, x, y - 2);
+                guiGraphics.setComponentTooltipForNextFrame(FONT, tooltip, x, y - 2);
             }
         }
     }

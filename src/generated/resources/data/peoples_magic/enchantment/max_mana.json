@@ -17,7 +17,6 @@
       }
     ]
   },
-  "exclusive_set": "#peoples_magic:mana_enchantment",
   "max_cost": {
     "base": 25,
     "per_level_above_first": 8

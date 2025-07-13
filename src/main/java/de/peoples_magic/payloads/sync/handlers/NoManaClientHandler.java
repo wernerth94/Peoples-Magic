@@ -1,7 +1,6 @@
 package de.peoples_magic.payloads.sync.handlers;
 
 import de.peoples_magic.overlays.ManaBarOverlay;
-import de.peoples_magic.payloads.sync.DisplayMessagePayload;
 import de.peoples_magic.payloads.sync.NoManaPayload;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 

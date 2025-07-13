@@ -2,21 +2,18 @@ package de.peoples_magic.entity.mini_boss;
 
 import com.google.common.collect.Lists;
 import de.peoples_magic.Config;
-import de.peoples_magic.Util;
-import de.peoples_magic.entity.ModEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -29,21 +26,22 @@ import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class BlazenKnight extends WitherSkeleton {
     private static final double FOLLOW_DISTANCE = 20F;
@@ -116,18 +114,18 @@ public class BlazenKnight extends WitherSkeleton {
 
     private void setup(ServerLevel level) {
         // fix spawning weirdness, where the Knight can spawn underground
-        if (!level.canSeeSky(this.blockPosition())) {
-            BlockPos above = this.blockPosition().above();
-            while (!level.canSeeSky(above) && above.getY() < 150) {
-                above = above.above();
-            }
-            if (level.canSeeSky(above)) {
-                this.setPos(above.getX() + 0.5, above.getY() + 1, above.getZ() + 0.5);
-            }
-            else {
-                System.out.println("Failed to find a valid spawn position for Blazen Knight");
-            }
-        }
+//        if (!level.canSeeSky(this.blockPosition())) {
+//            BlockPos above = this.blockPosition().above();
+//            while (!level.canSeeSky(above) && above.getY() < 150) {
+//                above = above.above();
+//            }
+//            if (level.canSeeSky(above)) {
+//                this.setPos(above.getX() + 0.5, above.getY() + 1, above.getZ() + 0.5);
+//            }
+//            else {
+//                System.out.println("Failed to find a valid spawn position for Blazen Knight");
+//            }
+//        }
         SkeletonHorse skelly_horse = new SkeletonHorse(EntityType.SKELETON_HORSE, level);
         skelly_horse.setTamed(true);
         skelly_horse.equipItemIfPossible(level, new ItemStack(Items.SADDLE));
@@ -328,12 +326,10 @@ public class BlazenKnight extends WitherSkeleton {
     public static boolean checkSpawnRules(
             EntityType<? extends Monster> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
+        if (!level.canSeeSky(pos)) {
+            return false;
+        }
         BlockPos blockpos = pos.below();
-//        for (int i = 1; i <= 3; ++i) {
-//            if (!(level.getBlockState(new BlockPos(pos.getX(), blockpos.getY() + i, pos.getZ())).getBlock() instanceof AirBlock)) {
-//                return false;
-//            }
-//        }
         int min_dist = 300;
         List<BlazenKnight> others = level.getEntitiesOfClass(BlazenKnight.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,
                 pos.getX()+min_dist, pos.getY()+50, pos.getZ()+min_dist));
@@ -365,25 +361,20 @@ public class BlazenKnight extends WitherSkeleton {
 
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("phase")) {
-            this.phase = compound.getIntOr("phase", 0);
-        }
-        if(compound.contains("ticks_alive")) {
-            this.ticks_alive = compound.getIntOr("ticks_alive", 0);
-        }
-        if(compound.contains("setup_done")) {
-            this.setup_done = compound.getBooleanOr("setup_done", false);
-        }
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+
+        this.phase = input.getIntOr("phase", 0);
+        this.ticks_alive = input.getIntOr("ticks_alive", 0);
+        this.setup_done = input.getBooleanOr("setup_done", false);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("phase", this.phase);
-        compound.putInt("ticks_alive", ticks_alive);
-        compound.putBoolean("setup_done", setup_done);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("phase", this.phase);
+        output.putInt("ticks_alive", ticks_alive);
+        output.putBoolean("setup_done", setup_done);
     }
 
 }

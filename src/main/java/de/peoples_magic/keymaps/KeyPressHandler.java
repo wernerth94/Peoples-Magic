@@ -4,6 +4,7 @@ import de.peoples_magic.payloads.spells.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+
 import static de.peoples_magic.keymaps.PeoplesMagicKeyMaps.*;
 
 public class KeyPressHandler {

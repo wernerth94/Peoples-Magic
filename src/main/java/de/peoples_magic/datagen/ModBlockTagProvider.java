@@ -1,12 +1,9 @@
 package de.peoples_magic.datagen;
 
-import de.peoples_magic.block.ModBlocks;
 import de.peoples_magic.PeoplesMagicMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.tags.BlockTags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 

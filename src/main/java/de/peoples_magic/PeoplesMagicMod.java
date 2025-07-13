@@ -1,5 +1,6 @@
 package de.peoples_magic;
 
+import com.mojang.logging.LogUtils;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.attributes.ModAttributes;
 import de.peoples_magic.block.ModBlockEntities;
@@ -7,21 +8,22 @@ import de.peoples_magic.block.ModBlockStateProperties;
 import de.peoples_magic.block.ModBlocks;
 import de.peoples_magic.effect.ModEffects;
 import de.peoples_magic.enchantment.ModEnchantmentEffects;
-import de.peoples_magic.entity.*;
+import de.peoples_magic.entity.ModEntities;
 import de.peoples_magic.entity.client.*;
 import de.peoples_magic.item.ModCreativeModeTabs;
 import de.peoples_magic.item.ModItems;
 import de.peoples_magic.keymaps.KeyPressHandler;
 import de.peoples_magic.keymaps.PeoplesMagicKeyMaps;
 import de.peoples_magic.loottables.ModLootModifiers;
-import de.peoples_magic.menu.book_of_magic.BookOfMagicScreen;
 import de.peoples_magic.menu.ModMenus;
+import de.peoples_magic.menu.book_of_magic.BookOfMagicScreen;
 import de.peoples_magic.overlays.FadingMessageOverlay;
 import de.peoples_magic.overlays.LearnedSpellsOverlay;
-import de.peoples_magic.payloads.PeoplesMagicPayloadRegistrar;
 import de.peoples_magic.overlays.ManaBarOverlay;
+import de.peoples_magic.payloads.PeoplesMagicPayloadRegistrar;
 import de.peoples_magic.potion.ModPotions;
 import de.peoples_magic.sound.ModSounds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,21 +32,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.common.damagesource.DamageContainer;
-import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
-import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
-
-import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -54,7 +41,18 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.damagesource.DamageContainer;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import org.slf4j.Logger;
 
 import static de.peoples_magic.attachments.ModAttachments.PLAYER_MANA;
 
@@ -213,7 +211,7 @@ public class PeoplesMagicMod
     }
 
 
-    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents
     {
         @SubscribeEvent

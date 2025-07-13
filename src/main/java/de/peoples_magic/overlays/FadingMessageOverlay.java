@@ -4,12 +4,12 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class FadingMessageOverlay implements LayeredDraw.Layer {
+public class FadingMessageOverlay implements GuiLayer {
     public static final FadingMessageOverlay instance = new FadingMessageOverlay();
     static final Font FONT = Minecraft.getInstance().font;
     private String message;

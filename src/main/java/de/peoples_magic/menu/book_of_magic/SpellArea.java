@@ -1,6 +1,5 @@
 package de.peoples_magic.menu.book_of_magic;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.peoples_magic.SpellUtil;
 import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
@@ -11,6 +10,7 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -180,6 +180,14 @@ public class SpellArea implements GuiEventListener, Renderable, NarratableEntry 
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        for (BOMExpertise expertise : active_expertises) {
+            List<Float> adj_coords = adjust_coordinates(expertise.tile);
+            if (should_render(expertise.tile)) {
+                expertise.render(guiGraphics, mouseX, mouseY, partialTick,
+                        adj_coords.get(0).intValue(), adj_coords.get(1).intValue(), zoom);
+            }
+        }
+
         for (BOMTooltip tip : active_tooltips) {
             List<Float> adj_coords = adjust_coordinates(tip.spell_tile);
             if (should_render(tip.spell_tile)) {
@@ -189,38 +197,30 @@ public class SpellArea implements GuiEventListener, Renderable, NarratableEntry 
                            adj_coords.get(0).intValue(), adj_coords.get(1).intValue(), (int)max_x, (int)max_y);
             }
         }
-
-        for (BOMExpertise expertise : active_expertises) {
-            List<Float> adj_coords = adjust_coordinates(expertise.tile);
-            if (should_render(expertise.tile)) {
-                expertise.render(guiGraphics, mouseX, mouseY, partialTick,
-                        adj_coords.get(0).intValue(), adj_coords.get(1).intValue(), zoom);
-            }
-        }
     }
 
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        guiGraphics.blit(RenderType::guiTextured, BG_SPELLS_TEXTURE, x, y, 0, 0, width, height, width, height);
+        guiGraphics.nextStratum();
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_SPELLS_TEXTURE, x, y, 0, 0, width, height, width, height);
         float x_offset = view_center_x - view_center_x * zoom;
         float y_offset = view_center_y - view_center_y * zoom;
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().scale(zoom, zoom, 1f);
-        guiGraphics.pose().translate(x_offset, y_offset, 0f);
-        guiGraphics.pose().translate(current_view_x, current_view_y, 0f);
+        guiGraphics.pose().scale(zoom, zoom);
+        guiGraphics.pose().translate(x_offset, y_offset);
+        guiGraphics.pose().translate(current_view_x, current_view_y);
 
-//        RenderSystem.enableBlend();
-//        RenderSystem.defaultBlendFunc();
         if (should_render(x + 20, y + 40, x + 20 + 64, y + 40 + 64)) {
-            guiGraphics.blit(RenderType::guiTextured, BG_SPELL_DIVIDER, x + 20, y + 40, 0, 0, 64, 64, 64, 64);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_SPELL_DIVIDER, x + 20, y + 40, 0, 0, 64, 64, 64, 64);
         }
-//        RenderSystem.disableBlend();
 
         for (SpellTile tile : active_spell_tiles) {
             if (should_render(tile)) {
                 tile.render(guiGraphics, mouseX, mouseY, partialTick);
             }
         }
-        guiGraphics.pose().popPose();
+
+        guiGraphics.pose().translate(-current_view_x, -current_view_y);
+        guiGraphics.pose().translate(-x_offset, -y_offset);
+        guiGraphics.pose().scale(1f/zoom, 1f/zoom);
         Util.draw_box(guiGraphics, x, y, x+width, y+height, 0xAFdeb212);
     }
 

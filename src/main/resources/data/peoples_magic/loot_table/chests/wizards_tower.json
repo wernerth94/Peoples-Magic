@@ -1,0 +1,204 @@
+{
+	"type": "chest",
+	"pools": [
+		{
+			"rolls": 5,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:diamond",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:gold_ingot",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:lapis_lazuli",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:book",
+					"weight": 1
+				}
+			]
+		},
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:diamond_helmet",
+					"functions": [
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"mending": 1
+							},
+							"conditions": [
+							{
+								"condition": "minecraft:random_chance",
+								"chance": 0.4
+							}
+						]
+						},
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"unbreaking": 3
+							},
+							"conditions": [
+								{
+									"condition": "minecraft:random_chance",
+									"chance": 0.4
+								}
+							]
+						}
+					],
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:diamond_chestplate",
+					"functions": [
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"mending": 1
+							},
+							"conditions": [
+								{
+									"condition": "minecraft:random_chance",
+									"chance": 0.4
+								}
+							]
+						},
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"unbreaking": 3
+							},
+							"conditions": [
+								{
+									"condition": "minecraft:random_chance",
+									"chance": 0.4
+								}
+							]
+						}
+					],
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:diamond_leggings",
+					"functions": [
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"mending": 1
+							},
+							"conditions": [
+								{
+									"condition": "minecraft:random_chance",
+									"chance": 0.4
+								}
+							]
+						},
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"unbreaking": 3
+							},
+							"conditions": [
+								{
+									"condition": "minecraft:random_chance",
+									"chance": 0.4
+								}
+							]
+						}
+					],
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:diamond_boots",
+					"functions": [
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"mending": 1
+							},
+							"conditions": [
+								{
+									"condition": "minecraft:random_chance",
+									"chance": 0.4
+								}
+							]
+						},
+						{
+							"function": "set_enchantments",
+							"enchantments": {
+								"unbreaking": 3
+							},
+							"conditions": [
+								{
+									"condition": "minecraft:random_chance",
+									"chance": 0.4
+								}
+							]
+						}
+					],
+					"weight": 1
+				}
+			]
+		},
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_absorption",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_fireball",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_ice_cone",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_aether_grip",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_repel",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_haste",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_farming",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"name": "peoples_magic:tome_of_summon_ally",
+					"weight": 1
+				}
+			]
+		}
+	]
+}

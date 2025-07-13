@@ -1,16 +1,14 @@
 package de.peoples_magic.menu.book_of_magic;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.peoples_magic.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-
-import java.util.function.Function;
 
 public class SpellTile implements Renderable {
     static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
@@ -36,7 +34,7 @@ public class SpellTile implements Renderable {
         // Glow
 //        RenderSystem.enableBlend();
 //        RenderSystem.defaultBlendFunc();
-        guiGraphics.blit(RenderType::guiTextured, glow, x-6, y-6, 0, 0, 32, 32, 32, 32);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, glow, x-6, y-6, 0, 0, 32, 32, 32, 32);
 //        RenderSystem.disableBlend();
         // Background
         if (knowledge > 0) {
@@ -46,15 +44,14 @@ public class SpellTile implements Renderable {
         // Icon
 //        RenderSystem.enableBlend();
 //        RenderSystem.defaultBlendFunc();
-        guiGraphics.blit(RenderType::guiTextured, texture, x+2, y+2, 0, 0, 16, 16, 16, 16);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, x+2, y+2, 0, 0, 16, 16, 16, 16);
 //        RenderSystem.disableBlend();
         // Key
         if (knowledge > 0) {
             String spell_level = level >= 7 ? "max" : String.valueOf(level);
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().scale(1f, 1f, 0f); // draw this string on background level
+            guiGraphics.nextStratum();
+            guiGraphics.pose().scale(1f, 1f); // draw this string on background level
             guiGraphics.drawString(FONT, String.format("%s", spell_level), max_x-2, max_y-2, TEXT_COLOR);
-            guiGraphics.pose().popPose();
         }
     }
 }

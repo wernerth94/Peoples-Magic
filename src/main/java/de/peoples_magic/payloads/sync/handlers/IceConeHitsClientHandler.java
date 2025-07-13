@@ -1,7 +1,6 @@
 package de.peoples_magic.payloads.sync.handlers;
 
 import de.peoples_magic.attachments.ModAttachments;
-import de.peoples_magic.payloads.sync.AetherGripPullsPayload;
 import de.peoples_magic.payloads.sync.IceConeHitsPayload;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 

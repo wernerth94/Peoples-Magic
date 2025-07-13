@@ -4,13 +4,9 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import de.peoples_magic.Config;
 import de.peoples_magic.PeoplesMagicMod;
-import de.peoples_magic.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Tuple;
-
-import java.util.List;
 
 public class AbsorptionProgressionCommand {
     public AbsorptionProgressionCommand(CommandDispatcher<CommandSourceStack> dispatcher) {

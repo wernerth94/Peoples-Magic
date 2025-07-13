@@ -2,17 +2,11 @@ package de.peoples_magic.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import de.peoples_magic.Config;
 import de.peoples_magic.PeoplesMagicMod;
-import de.peoples_magic.Util;
-import de.peoples_magic.attachments.ModAttachments;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Tuple;
-
-import java.util.List;
 
 public class FireballProgressionCommand {
     public FireballProgressionCommand(CommandDispatcher<CommandSourceStack> dispatcher) {

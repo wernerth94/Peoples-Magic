@@ -16,10 +16,6 @@ import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.data.PackOutput;
 
-import java.util.HashSet;
-import java.util.SequencedSet;
-import java.util.Set;
-
 public class ModModelProvider extends ModelProvider {
     public ModModelProvider(PackOutput pOutput) {
         super(pOutput, PeoplesMagicMod.MOD_ID);

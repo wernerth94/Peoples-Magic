@@ -11,102 +11,98 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static com.mojang.serialization.Codec.*;
+
 public class ModAttachments {
 
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, PeoplesMagicMod.MOD_ID);
 
-
-    // Serialization via INBTSerializable
-//    private static final Supplier<AttachmentType<FireballData>> HANDLER = ATTACHMENT_TYPES.register(
-//            "handler", () -> AttachmentType.serializable(() -> new FireballData(1, 0.0f)).build()
-//    );
-
     public static final Supplier<AttachmentType<Boolean>> BOM_RECEIVED = ATTACHMENT_TYPES.register(
-            "player_bom_received", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build()
+            "player_bom_received", () -> AttachmentType.builder(() -> false).serialize(BOOL.fieldOf("value")).copyOnDeath().build()
     );
 
     public static final Supplier<AttachmentType<String>> BOM_ACTIVE_MENU = ATTACHMENT_TYPES.register(
-            "bom_active_menu", () -> AttachmentType.builder(() -> "main").serialize(Codec.STRING).build()
+            "bom_active_menu", () -> AttachmentType.builder(() -> "main").serialize(Codec.STRING.fieldOf("value")).build()
     );
 
     public static final Supplier<AttachmentType<Double>> PLAYER_MANA = ATTACHMENT_TYPES.register(
-            "player_mana", () -> AttachmentType.builder(() -> Double.valueOf(0)).serialize(Codec.DOUBLE).build()
+            "player_mana", () -> AttachmentType.builder(() -> Double.valueOf(0)).serialize(Codec.DOUBLE.fieldOf("value")).build()
     );
     public static final Supplier<AttachmentType<Boolean>> PLAYER_SYNCED = ATTACHMENT_TYPES.register(
-            "player_synced_after_death", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build()
+            "player_synced_after_death", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("value")).build()
     );
 
     public static final Supplier<AttachmentType<Integer>> ABSORPTION_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "absorption_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "absorption_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> ABSORPTION_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "absorption_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "absorption_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Long>> LAST_ABSORPTION_CAST = ATTACHMENT_TYPES.register(
-            "last_absorption_cast", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG).copyOnDeath().build());
+            "last_absorption_cast", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> ABSORPTION_MITIGATION = ATTACHMENT_TYPES.register(
-            "absorption_mitigation", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "absorption_mitigation", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
 
     public static final Supplier<AttachmentType<Integer>> REPEL_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "repel_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "repel_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> REPEL_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "repel_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "repel_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Long>> REPEL_CAST = ATTACHMENT_TYPES.register(
-            "last_repel_cast", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG).copyOnDeath().build());
+            "last_repel_cast", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> REPEL_SPIDERS_REPELLED = ATTACHMENT_TYPES.register(
-            "repel_spiders_repelled", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "repel_spiders_repelled", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Long>> REPEL_LAST_REPEL = ATTACHMENT_TYPES.register(
-            "repel_last_repel", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG).build());
+            "repel_last_repel", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG.fieldOf("value")).build());
 
     public static final Supplier<AttachmentType<Integer>> FIREBALL_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "fireball_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "fireball_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> FIREBALL_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "fireball_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "fireball_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> FIREBALL_HITS = ATTACHMENT_TYPES.register(
-            "fireball_hits", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "fireball_hits", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
 
     public static final Supplier<AttachmentType<Integer>> ICE_CONE_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "ice_cone_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "ice_cone_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> ICE_CONE_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "ice_cone_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "ice_cone_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> ICE_CONE_MULTIPLE_HIT = ATTACHMENT_TYPES.register(
-            "ice_cone_multiple_hit", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "ice_cone_multiple_hit", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
 
     public static final Supplier<AttachmentType<Integer>> AETHER_GRIP_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "aether_grip_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "aether_grip_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> AETHER_GRIP_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "aether_grip_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "aether_grip_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> AETHER_GRIP_PULLS = ATTACHMENT_TYPES.register(
-            "aether_grip_pulls", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "aether_grip_pulls", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Long>> AETHER_GRIP_PULL_CD = ATTACHMENT_TYPES.register(
-            "aether_grip_pull_cd", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG).copyOnDeath().build());
+            "aether_grip_pull_cd", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> AETHER_GRIP_ACTIVE_ENTITY = ATTACHMENT_TYPES.register(
-            "aether_grip_active_entity", () -> AttachmentType.builder(() -> -1).serialize(Codec.INT).build());
+            "aether_grip_active_entity", () -> AttachmentType.builder(() -> -1).serialize(Codec.INT.fieldOf("value")).build());
 
     public static final Supplier<AttachmentType<Integer>> HASTE_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "haste_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "haste_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> HASTE_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "haste_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "haste_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> HASTE_UPTIME = ATTACHMENT_TYPES.register(
-            "haste_uptime", () -> AttachmentType.builder(() -> 0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "haste_uptime", () -> AttachmentType.builder(() -> 0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Boolean>> HASTE_IS_ACTIVE = ATTACHMENT_TYPES.register(
-            "haste_is_active", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build());
+            "haste_is_active", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("value")).build());
     public static final Supplier<AttachmentType<Integer>> HASTE_LAST_REFRESHED = ATTACHMENT_TYPES.register(
-            "haste_last_refreshed", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());
+            "haste_last_refreshed", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).build());
 
     public static final Supplier<AttachmentType<Integer>> FARMING_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "farming_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "farming_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> FARMING_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "farming_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "farming_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> FARMING_ANIMALS_BRED = ATTACHMENT_TYPES.register(
-            "farming_animals_bred", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "farming_animals_bred", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Boolean>> FARMING_IS_ACTIVE = ATTACHMENT_TYPES.register(
-            "farming_is_active", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
+            "farming_is_active", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("value")).copyOnDeath().build());
 
     public static final Supplier<AttachmentType<Integer>> SUMMON_ALLY_KNOWLEDGE = ATTACHMENT_TYPES.register(
-            "summon_ally_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "summon_ally_knowledge", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Float>> SUMMON_ALLY_ACTIVE_CD = ATTACHMENT_TYPES.register(
-            "summon_ally_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT).copyOnDeath().build());
+            "summon_ally_cd", () -> AttachmentType.builder(() -> 0.0f).serialize(Codec.FLOAT.fieldOf("value")).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> SUMMON_ALLY_SUMMONS = ATTACHMENT_TYPES.register(
-            "summon_ally_summons", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+            "summon_ally_summons", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("value")).copyOnDeath().build());
 
 
     public static Map<String, AttachmentType<Integer>> all_spell_knowledge() {

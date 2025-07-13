@@ -1,13 +1,10 @@
 package de.peoples_magic.entity.mini_boss;
 
 import de.peoples_magic.Config;
-import de.peoples_magic.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,23 +27,16 @@ import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.AirBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 
 public class SkyScourge extends Phantom {
@@ -337,47 +327,43 @@ public class SkyScourge extends Phantom {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("AX")) {
-            this.anchor_point = new BlockPos(compound.getInt("AX").orElse(0),
-                    compound.getInt("AY").orElse(0),
-                    compound.getInt("AZ").orElse(0));
-            next_circle_target();
-        }
-        if (compound.contains("phase")) {
-            this.phase = compound.getInt("phase").orElse(0);
-        }
-        if(compound.contains("ticks_alive")) {
-            this.ticks_alive = compound.getIntOr("ticks_alive", 0);
-        }
-        if(compound.contains("setup_done")) {
-            this.setup_done = compound.getBooleanOr("setup_done", false);
-        }
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        int ax = input.getIntOr("AX", 0);
+        int ay = input.getIntOr("AY", 0);
+        int az = input.getIntOr("AZ", 0);
+        this.anchor_point = new BlockPos(ax, ay, az);
+
+        this.phase = input.getIntOr("phase", 0);
+        this.ticks_alive = input.getIntOr("ticks_alive", 0);
+        this.setup_done = input.getBooleanOr("setup_done", false);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("AX", this.anchor_point.getX());
-        compound.putInt("AY", this.anchor_point.getY());
-        compound.putInt("AZ", this.anchor_point.getZ());
-        compound.putInt("phase", this.phase);
-        compound.putInt("ticks_alive", ticks_alive);
-        compound.putBoolean("setup_done", setup_done);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("AX", this.anchor_point.getX());
+        output.putInt("AY", this.anchor_point.getY());
+        output.putInt("AZ", this.anchor_point.getZ());
+        output.putInt("phase", this.phase);
+        output.putInt("ticks_alive", ticks_alive);
+        output.putBoolean("setup_done", setup_done);
     }
 
 
     public static boolean checkSpawnRules(
             EntityType<? extends Mob> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
+        if (spawnType == EntitySpawnReason.SPAWNER) {
+            return true;
+        }
+        if (!level.canSeeSky(pos)) {
+            return false;
+        }
         BlockPos blockpos = pos.below();
         int min_dist = 300;
         List<SkyScourge> others = level.getEntitiesOfClass(SkyScourge.class, new AABB(pos.getX()-min_dist, pos.getY()-100, pos.getZ()-min_dist,
                 pos.getX()+min_dist, pos.getY()+100, pos.getZ()+min_dist));
-        if (spawnType == EntitySpawnReason.SPAWNER) {
-            return true;
-        }
         return others.isEmpty() &&
                 level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ALLAY);
     }

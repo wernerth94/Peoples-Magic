@@ -1,33 +1,28 @@
 package de.peoples_magic.menu.book_of_magic;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import de.peoples_magic.PeoplesMagicMod;
 import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.menu.LargeTextField;
-import de.peoples_magic.menu.book_of_magic.tooltips.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class BookOfMagicScreen extends AbstractContainerScreen<BookOfMagicMenu> {
-    static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
+    static final int TEXT_COLOR = 0xFFFFFFFF;
     static final Font FONT = Minecraft.getInstance().font;
     private static final ResourceLocation BG_TEXTURE = Util.rec_loc("textures/book_of_magic/book_menu_background.png");
     public final int menu_width = 260;
@@ -441,7 +436,7 @@ public class BookOfMagicScreen extends AbstractContainerScreen<BookOfMagicMenu> 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         spell_area.renderBg(guiGraphics, partialTick, mouseX, mouseY);
-        guiGraphics.blit(RenderType::guiTextured, BG_TEXTURE, menu_left, menu_top, 0, 0, menu_width, menu_height, menu_width, menu_height);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_TEXTURE, menu_left, menu_top, 0, 0, menu_width, menu_height, menu_width, menu_height);
     }
 
 }

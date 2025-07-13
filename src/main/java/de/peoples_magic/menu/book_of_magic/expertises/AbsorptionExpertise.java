@@ -1,17 +1,13 @@
 package de.peoples_magic.menu.book_of_magic.expertises;
 
-import de.peoples_magic.Util;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.menu.book_of_magic.BOMExpertise;
 import de.peoples_magic.menu.book_of_magic.SpellArea;
 import de.peoples_magic.menu.book_of_magic.SpellTile;
-import de.peoples_magic.payloads.sync.UpdateKnowledgePayload;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
 

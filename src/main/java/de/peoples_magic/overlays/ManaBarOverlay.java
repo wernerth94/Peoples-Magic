@@ -8,15 +8,15 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.renderer.RenderType;
+import net.neoforged.neoforge.client.gui.GuiLayer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ManaBarOverlay implements LayeredDraw.Layer {
+public class ManaBarOverlay implements GuiLayer {
     public static final ManaBarOverlay instance = new ManaBarOverlay();
     static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
     public final static ResourceLocation TEXTURE = Util.rec_loc("textures/gui/mana_bar_icons.png");
@@ -48,9 +48,9 @@ public class ManaBarOverlay implements LayeredDraw.Layer {
         int bar_y = display_height - bar_height - y_offset;
 
         // Background
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, bar_x, bar_y, 0, 59, bar_width, bar_height, texture_width, texture_height);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, bar_x, bar_y, 0, 59, bar_width, bar_height, texture_width, texture_height);
         // Bar Content
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, bar_x, bar_y, 0, 20, adjusted_bar_width, bar_height, texture_width, texture_height);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, bar_x, bar_y, 0, 20, adjusted_bar_width, bar_height, texture_width, texture_height);
         // No Mana Flash
         long currentTime = System.currentTimeMillis();
         long elapsedTime = currentTime - no_mana_flash_start_time;

@@ -4,7 +4,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import de.peoples_magic.entity.ModEntities;
 import de.peoples_magic.entity.mini_boss.ForestGuardian;
-import de.peoples_magic.entity.mini_boss.SkyScourge;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerLevel;

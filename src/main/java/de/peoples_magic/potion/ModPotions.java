@@ -4,7 +4,6 @@ import de.peoples_magic.PeoplesMagicMod;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 

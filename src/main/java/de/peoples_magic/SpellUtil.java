@@ -2,7 +2,6 @@ package de.peoples_magic;
 
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.entity.spells.*;
-import de.peoples_magic.overlays.FadingMessageOverlay;
 import de.peoples_magic.payloads.sync.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -332,7 +331,7 @@ public class SpellUtil {
             float prob = Util.get_or_last(Config.farming_probability, spell_level);
             if (knowledge == 2 && animal_breeding ||
                 knowledge == 3 && !animal_breeding) {
-                //TODO
+                //TODO test for balance
                 prob *= 2f;
             }
             double player_mana = player.getData(PLAYER_MANA);

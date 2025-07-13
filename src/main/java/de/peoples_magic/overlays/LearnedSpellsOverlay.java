@@ -10,8 +10,9 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.ARGB;
+import net.neoforged.neoforge.client.gui.GuiLayer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
@@ -23,10 +24,10 @@ import static de.peoples_magic.attachments.ModAttachments.*;
 import static de.peoples_magic.keymaps.PeoplesMagicKeyMaps.*;
 
 @OnlyIn(Dist.CLIENT)
-public class LearnedSpellsOverlay implements LayeredDraw.Layer {
+public class LearnedSpellsOverlay implements GuiLayer {
     public static final LearnedSpellsOverlay instance = new LearnedSpellsOverlay();
-    static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
-    static final int MANA_COLOR = ChatFormatting.AQUA.getColor();
+    static final int TEXT_COLOR = 0xFFFFFFFF;
+    static final int MANA_COLOR = 0xFF10A5F5;
     static final Font FONT = Minecraft.getInstance().font;
     private static final int tile_width = 20;
     private static final int tile_height = 20;
@@ -77,13 +78,11 @@ public class LearnedSpellsOverlay implements LayeredDraw.Layer {
     private record Tile(int x, int y, int max_x, int max_y, int level, float cd_percentage, long cd_flash_time, String key, Number cost,
                         ResourceLocation texture, boolean is_active) {
         private void draw(GuiGraphics guiGraphics, boolean show_cd) {
+            guiGraphics.nextStratum();
             // Background
             guiGraphics.fill(x, y, max_x, max_y, 0x99000000);
             // Icon
-//            RenderSystem.enableBlend();
-//            RenderSystem.defaultBlendFunc();
-            guiGraphics.blit(RenderType::guiTextured, texture, x+2, y+2, 0, 0, 16, 16, 16, 16);
-//            RenderSystem.disableBlend();
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, x+2, y+2, 0, 0, 16, 16, 16, 16);
             // Is active
             if (is_active) {
                 Util.draw_box(guiGraphics, x, y, max_x, max_y, 0xFFfac825);
@@ -112,8 +111,7 @@ public class LearnedSpellsOverlay implements LayeredDraw.Layer {
                 guiGraphics.drawString(FONT, key, max_x-5, max_y-5, TEXT_COLOR);
             }
             // Cost
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().scale(0.5f, 0.5f, 1f);
+            guiGraphics.pose().scale(0.5f, 0.5f);
             if (cost instanceof Integer) {
                 guiGraphics.drawString(FONT, String.format("%d", cost), x*2, (max_y-4)*2, MANA_COLOR);
             } else if (cost instanceof Float) {
@@ -122,7 +120,7 @@ public class LearnedSpellsOverlay implements LayeredDraw.Layer {
             else {
                 guiGraphics.drawString(FONT, String.format("%s", cost), x*2, (max_y-4)*2, MANA_COLOR);
             }
-            guiGraphics.pose().popPose();
+            guiGraphics.pose().scale(2f, 2f);
         }
     }
 

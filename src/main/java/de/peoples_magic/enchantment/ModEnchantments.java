@@ -33,7 +33,7 @@ public class ModEnchantments {
                 Enchantment.enchantment(Enchantment.definition(
                                 items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 7, 3,
                                 Enchantment.dynamicCost(5, 8), Enchantment.dynamicCost(25, 8), 3, EquipmentSlotGroup.ARMOR))
-                .exclusiveWith(enchantment.getOrThrow(ModTags.Enchantments.MANA_ENCHANTMENT))
+//                .exclusiveWith(enchantment.getOrThrow(ModTags.Enchantments.MANA_ENCHANTMENT))
                         .withEffect(EnchantmentEffectComponents.ATTRIBUTES,
                                 new EnchantmentAttributeEffect(
                                         Util.rec_loc("enchantment.max_mana"),
@@ -48,7 +48,7 @@ public class ModEnchantments {
                 Enchantment.enchantment(Enchantment.definition(
                                 items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 7, 3,
                                 Enchantment.dynamicCost(5, 8), Enchantment.dynamicCost(25, 8), 3, EquipmentSlotGroup.ARMOR))
-                        .exclusiveWith(enchantment.getOrThrow(ModTags.Enchantments.MANA_ENCHANTMENT))
+//                        .exclusiveWith(enchantment.getOrThrow(ModTags.Enchantments.MANA_ENCHANTMENT))
                         .withEffect(EnchantmentEffectComponents.ATTRIBUTES,
                                 new EnchantmentAttributeEffect(
                                         Util.rec_loc("enchantment.mana_regen"),

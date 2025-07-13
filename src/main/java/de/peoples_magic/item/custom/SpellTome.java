@@ -1,8 +1,6 @@
 package de.peoples_magic.item.custom;
 
 import de.peoples_magic.Util;
-import de.peoples_magic.attachments.ModAttachments;
-import de.peoples_magic.overlays.FadingMessageOverlay;
 import de.peoples_magic.payloads.sync.DisplayMessagePayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;

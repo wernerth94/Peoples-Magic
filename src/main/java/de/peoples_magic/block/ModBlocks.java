@@ -3,8 +3,6 @@ package de.peoples_magic.block;
 import de.peoples_magic.PeoplesMagicMod;
 import de.peoples_magic.Util;
 import de.peoples_magic.item.ModItems;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

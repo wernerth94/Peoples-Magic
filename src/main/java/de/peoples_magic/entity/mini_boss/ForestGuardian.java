@@ -1,12 +1,8 @@
 package de.peoples_magic.entity.mini_boss;
 
 import de.peoples_magic.Config;
-import de.peoples_magic.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,7 +14,10 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -33,7 +32,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -41,7 +41,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.random.RandomGenerator;
 
 
@@ -334,43 +333,51 @@ public class ForestGuardian extends Creaking {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("AX")) {
-            this.anchor_point = new BlockPos(compound.getInt("AX").orElse(0),
-                    compound.getInt("AY").orElse(0),
-                    compound.getInt("AZ").orElse(0));
-        }
-        if (compound.contains("phase")) {
-            this.phase = compound.getInt("phase").orElse(0);
-        }
-        if(compound.contains("ticks_alive")) {
-            this.ticks_alive = compound.getIntOr("ticks_alive", 0);
-        }
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        int ax = input.getIntOr("AX", 0);
+        int ay = input.getIntOr("AY", 0);
+        int az = input.getIntOr("AZ", 0);
+        this.anchor_point = new BlockPos(ax, ay, az);
+
+        this.phase = input.getIntOr("phase", 0);
+        this.ticks_alive = input.getIntOr("ticks_alive", 0);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("AX", this.anchor_point.getX());
-        compound.putInt("AY", this.anchor_point.getY());
-        compound.putInt("AZ", this.anchor_point.getZ());
-        compound.putInt("phase", this.phase);
-        compound.putInt("ticks_alive", ticks_alive);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("AX", this.anchor_point.getX());
+        output.putInt("AY", this.anchor_point.getY());
+        output.putInt("AZ", this.anchor_point.getZ());
+        output.putInt("phase", this.phase);
+        output.putInt("ticks_alive", ticks_alive);
     }
 
 
     public static boolean checkSpawnRules(
             EntityType<? extends Mob> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
+        if (spawnType == EntitySpawnReason.SPAWNER) {
+            return true;
+        }
+        if (!level.canSeeSky(pos)) {
+//            System.out.println("Guardian of the Forest cant see the sky at " + pos);
+            return false;
+        }
         BlockPos blockpos = pos.below();
         int min_dist = 300;
         List<ForestGuardian> others = level.getEntitiesOfClass(ForestGuardian.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,
                 pos.getX()+min_dist, pos.getY()+50, pos.getZ()+min_dist));
-        if (spawnType == EntitySpawnReason.SPAWNER) {
-            return true;
+        if (!others.isEmpty()) {
+//            System.out.println("Guardian of the Forest already spawned at " + others.getFirst().position());
+            return false;
         }
-        return others.isEmpty() &&
-               level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN);
+        if (!level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN)) {
+//            System.out.println("Guardian of the Forest can not spawn at " + pos);
+            return false;
+        }
+
+        return true;
     }
 }

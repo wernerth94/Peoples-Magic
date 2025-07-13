@@ -12,13 +12,25 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
 
-public class ManaPoolJadeCompat implements
-        IServerDataProvider<BlockAccessor> {
+public class ManaPoolJadeClientCompat implements
+        IBlockComponentProvider {
 
     @Override
-    public void appendServerData(CompoundTag data, BlockAccessor accessor) {
-        data.putInt("Mana", accessor.getBlockState().getValue(ManaPoolBlock.MANA_STORED));
+    public void appendTooltip(
+            ITooltip tooltip,
+            BlockAccessor accessor,
+            IPluginConfig config
+    ) {
+        if (accessor.getServerData().contains("Mana") &&
+            accessor.getServerData().getInt("Mana").isPresent()) {
+
+            tooltip.add(Component.translatable(
+                    "description.peoples_magic.mana_pool_stored_mana",
+                    accessor.getServerData().getInt("Mana").get()
+            ));
+        }
     }
+
 
     @Override
     public ResourceLocation getUid() {

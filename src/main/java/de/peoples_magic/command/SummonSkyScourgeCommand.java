@@ -3,7 +3,6 @@ package de.peoples_magic.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import de.peoples_magic.entity.ModEntities;
-import de.peoples_magic.entity.mini_boss.BlazenKnight;
 import de.peoples_magic.entity.mini_boss.SkyScourge;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

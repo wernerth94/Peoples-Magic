@@ -5,7 +5,6 @@ import de.peoples_magic.attributes.ModAttributes;
 import de.peoples_magic.payloads.sync.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,6 +16,7 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
+
 import static de.peoples_magic.attachments.ModAttachments.*;
 
 public class Util {
@@ -155,7 +155,7 @@ public class Util {
     public static void draw_box(GuiGraphics guiGraphics, int x, int y, int max_x, int max_y, int color) {
         guiGraphics.fill(x, y, max_x, y+1, color);
 
-        guiGraphics.fill(x, max_y-1, max_x,       max_y,   color);
+        guiGraphics.fill(x, max_y-1, max_x, max_y, color);
 
         guiGraphics.fill(x, y, x+1, max_y, color);
 

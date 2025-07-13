@@ -3,10 +3,7 @@ package de.peoples_magic.payloads.sync.handlers;
 import de.peoples_magic.PeoplesMagicMod;
 import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.payloads.sync.UpdateKnowledgePayload;
-import de.peoples_magic.payloads.sync.UpdateManaPayload;
-import net.minecraft.util.Tuple;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.Map;

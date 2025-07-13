@@ -1,0 +1,25 @@
+{
+	"replace": false,
+	"values": [
+		"minecraft:plains",
+		"minecraft:savanna",
+		"minecraft:snowy_plains",
+		"minecraft:windswept_hills",
+		{
+			"id": "biomesoplenty:prairie",
+			"required": false
+		},
+		{
+			"id": "biomesoplenty:field",
+			"required": false
+		},
+		{
+			"id": "biomesoplenty:shrubland",
+			"required": false
+		},
+		{
+			"id": "biomesoplenty:grassland",
+			"required": false
+		}
+	]
+}

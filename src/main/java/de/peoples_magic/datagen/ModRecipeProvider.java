@@ -1,12 +1,14 @@
 package de.peoples_magic.datagen;
 
-import de.peoples_magic.PeoplesMagicMod;
-import de.peoples_magic.item.ModItems;
 import de.peoples_magic.block.ModBlocks;
+import de.peoples_magic.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.item.Items;
+
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider {

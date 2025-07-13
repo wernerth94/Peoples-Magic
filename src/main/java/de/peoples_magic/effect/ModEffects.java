@@ -1,7 +1,6 @@
 package de.peoples_magic.effect;
 
 import de.peoples_magic.PeoplesMagicMod;
-import de.peoples_magic.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
