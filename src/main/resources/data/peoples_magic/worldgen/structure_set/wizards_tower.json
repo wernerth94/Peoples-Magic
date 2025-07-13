@@ -1,0 +1,15 @@
+{
+	"placement": {
+		"type": "minecraft:random_spread",
+		"salt": 19011220,
+		"separation": 16,
+		"spacing": 50,
+		"spread_type": "triangular"
+	},
+	"structures": [
+		{
+			"structure": "peoples_magic:wizards_tower",
+			"weight": 1
+		}
+	]
+}
