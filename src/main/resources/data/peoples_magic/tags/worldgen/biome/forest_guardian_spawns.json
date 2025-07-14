@@ -2,19 +2,23 @@
 	"replace": false,
 	"values": [
 		{
-			"id": "minecraft:plains",
+			"id": "minecraft:birch_forest",
 			"required": false
 		},
 		{
-			"id": "minecraft:savanna",
+			"id": "minecraft:old_growth_birch_forest",
 			"required": false
 		},
 		{
-			"id": "minecraft:snowy_plains",
+			"id": "minecraft:forest",
 			"required": false
 		},
 		{
-			"id": "minecraft:windswept_hills",
+			"id": "minecraft:flower_forest",
+			"required": false
+		},
+		{
+			"id": "minecraft:taiga",
 			"required": false
 		},
 

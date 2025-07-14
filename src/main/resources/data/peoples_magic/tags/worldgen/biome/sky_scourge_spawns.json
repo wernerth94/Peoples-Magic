@@ -1,8 +1,15 @@
 {
 	"replace": false,
 	"values": [
-		"minecraft:frozen_peaks",
-		"minecraft:jagged_peaks",
+		{
+			"id": "minecraft:frozen_peaks",
+			"required": false
+		},
+		{
+			"id": "minecraft:jagged_peaks",
+			"required": false
+		},
+
 		{
 			"id": "biomesoplenty:crag",
 			"required": false

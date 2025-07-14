@@ -41,8 +41,8 @@ import java.util.List;
 
 public class SkyScourge extends Phantom {
     private static final double FOLLOW_DISTANCE = 50F;
-    private static final int GROUND_OFFSET = 20;
-    private static final float CIRCLE_WIDTH = 40.0f;
+    private static final int GROUND_OFFSET = 15;
+    private static final float CIRCLE_WIDTH = 15.0f;
 
     private final ServerBossEvent boss_event = new ServerBossEvent(Component.literal("Scourge of the Sky"),
             BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.NOTCHED_10);
@@ -106,11 +106,15 @@ public class SkyScourge extends Phantom {
 
         if (setup_done == false) {
             setup_done = true;
+            this.setCustomName(Component.literal("Scourge of the Skies"));
+            this.setCustomNameVisible(false);
             if (this.anchor_point.getX() == 0 && this.anchor_point.getZ() == 0 && this.anchor_point.getY() == 0) {
                 setup_circle_height();
             }
             next_circle_target();
             this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 999999999, 2, false, false, false));
+
+            System.out.println("sky scourge setup done " + this.position());
         }
 
         ticks_alive++;

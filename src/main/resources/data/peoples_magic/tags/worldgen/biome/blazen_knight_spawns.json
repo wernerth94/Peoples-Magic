@@ -1,10 +1,23 @@
 {
 	"replace": false,
 	"values": [
-		"minecraft:plains",
-		"minecraft:savanna",
-		"minecraft:snowy_plains",
-		"minecraft:windswept_hills",
+		{
+			"id": "minecraft:plains",
+			"required": false
+		},
+		{
+			"id": "minecraft:savanna",
+			"required": false
+		},
+		{
+			"id": "minecraft:snowy_plains",
+			"required": false
+		},
+		{
+			"id": "minecraft:windswept_hills",
+			"required": false
+		},
+
 		{
 			"id": "biomesoplenty:prairie",
 			"required": false

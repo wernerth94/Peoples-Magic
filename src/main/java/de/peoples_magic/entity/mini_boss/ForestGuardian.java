@@ -125,7 +125,9 @@ public class ForestGuardian extends Creaking {
 
         if (!setup_done) {
             setup_done = true;
-
+            this.setCustomName(Component.literal("Forest Guardian"));
+            this.setCustomNameVisible(false);
+            System.out.println("forest guardian setup done " + this.position());
         }
 
         ticks_alive++;

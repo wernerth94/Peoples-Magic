@@ -113,19 +113,20 @@ public class BlazenKnight extends WitherSkeleton {
     }
 
     private void setup(ServerLevel level) {
-        // fix spawning weirdness, where the Knight can spawn underground
-//        if (!level.canSeeSky(this.blockPosition())) {
-//            BlockPos above = this.blockPosition().above();
-//            while (!level.canSeeSky(above) && above.getY() < 150) {
-//                above = above.above();
-//            }
-//            if (level.canSeeSky(above)) {
-//                this.setPos(above.getX() + 0.5, above.getY() + 1, above.getZ() + 0.5);
-//            }
-//            else {
-//                System.out.println("Failed to find a valid spawn position for Blazen Knight");
-//            }
-//        }
+        if (!level.canSeeSky(this.blockPosition())) {
+            BlockPos above = this.blockPosition().above();
+            while (!level.canSeeSky(above) && above.getY() < 150) {
+                above = above.above();
+            }
+            if (level.canSeeSky(above)) {
+                this.setPos(above.getX() + 0.5, above.getY() + 1, above.getZ() + 0.5);
+            }
+            else {
+                System.out.println("Failed to find a valid spawn position for Blazen Knight");
+            }
+        }
+        this.setCustomName(Component.literal("The Blazen Knight"));
+        this.setCustomNameVisible(false);
         SkeletonHorse skelly_horse = new SkeletonHorse(EntityType.SKELETON_HORSE, level);
         skelly_horse.setTamed(true);
         skelly_horse.equipItemIfPossible(level, new ItemStack(Items.SADDLE));
@@ -135,6 +136,7 @@ public class BlazenKnight extends WitherSkeleton {
         level.addFreshEntity(skelly_horse);
         this.startRiding(skelly_horse);
         this.horse = skelly_horse;
+        System.out.println("blazen knight setup done " + this.position());
     }
 
     @Override
@@ -326,9 +328,6 @@ public class BlazenKnight extends WitherSkeleton {
     public static boolean checkSpawnRules(
             EntityType<? extends Monster> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
-        if (!level.canSeeSky(pos)) {
-            return false;
-        }
         BlockPos blockpos = pos.below();
         int min_dist = 300;
         List<BlazenKnight> others = level.getEntitiesOfClass(BlazenKnight.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,
@@ -336,8 +335,16 @@ public class BlazenKnight extends WitherSkeleton {
         if (spawnType == EntitySpawnReason.SPAWNER) {
             return true;
         }
-        return others.isEmpty() &&
-               level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN);
+
+        if (others.size() > 0) {
+            System.out.println("other blazen knight spawned at " + others.get(0).position());
+            return false;
+        }
+        if (!level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN)) {
+            System.out.println("blazen knight cannot spawned at " + pos);
+            return false;
+        }
+        return true;
     }
 
     @Override

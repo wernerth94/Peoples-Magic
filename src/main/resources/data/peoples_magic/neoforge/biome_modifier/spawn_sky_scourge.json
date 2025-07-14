@@ -5,6 +5,6 @@
 		"type": "peoples_magic:sky_scourge",
 		"maxCount": 1,
 		"minCount": 1,
-		"weight": 5
+		"weight": 10
 	}
 }
