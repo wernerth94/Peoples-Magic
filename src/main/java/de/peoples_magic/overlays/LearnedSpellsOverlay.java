@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import static de.peoples_magic.attachments.ModAttachments.*;
 import static de.peoples_magic.keymaps.PeoplesMagicKeyMaps.*;
 
-@OnlyIn(Dist.CLIENT)
+
 public class LearnedSpellsOverlay implements GuiLayer {
     public static final LearnedSpellsOverlay instance = new LearnedSpellsOverlay();
     static final int TEXT_COLOR = 0xFFFFFFFF;

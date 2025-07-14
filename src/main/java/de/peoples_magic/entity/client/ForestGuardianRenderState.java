@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.entity.state.CreakingRenderState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class ForestGuardianRenderState extends CreakingRenderState {
 
     public int tick_count;

@@ -17,7 +17,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@OnlyIn(Dist.CLIENT)
+
 public class AetherGripRenderer extends EntityRenderer<AetherGripProjectile, AetherGripRenderState> {
     private static final float MIN_CAMERA_DISTANCE_SQUARED = Mth.square(1.3F);
     private final AetherGripProjectileModel model;

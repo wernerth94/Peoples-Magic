@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class FireballRenderState extends EntityRenderState {
 
     public int tick_count;

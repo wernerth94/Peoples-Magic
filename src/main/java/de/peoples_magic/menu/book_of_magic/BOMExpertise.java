@@ -8,13 +8,12 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public abstract class BOMExpertise implements Renderable, GuiEventListener {
     protected static final ResourceLocation HOMING_MISSLE_TEXTURE = Util.rec_loc("textures/book_of_magic/exp_homing_missle.png");
     protected static final ResourceLocation VOID_TEXTURE = Util.rec_loc("textures/book_of_magic/exp_void.png");
 
-    protected static final int WHITE = ChatFormatting.WHITE.getColor();
+    protected static final int WHITE = 0xFFFFFFFF;
     protected static final Font FONT = Minecraft.getInstance().font;
     protected Player player;
     protected int knowledge;
@@ -112,7 +111,7 @@ public abstract class BOMExpertise implements Renderable, GuiEventListener {
         if (this.knowledge == 1) {
             this.knowledge = 1 + expertise_id;
             this.player.setData(get_attachment(), this.knowledge);
-            PacketDistributor.sendToServer(new UpdateKnowledgePayload(get_name(), player.getData(get_attachment())));
+            ClientPacketDistributor.sendToServer(new UpdateKnowledgePayload(get_name(), player.getData(get_attachment())));
         }
     }
 

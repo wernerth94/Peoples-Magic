@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class AetherGripRenderState extends EntityRenderState {
 
     public double camera_dist_sqr;

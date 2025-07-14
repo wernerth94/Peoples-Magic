@@ -16,7 +16,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT)
+
 public abstract class BookButton extends Button {
 
     protected static final WidgetSprites SPRITES = new WidgetSprites(
@@ -61,7 +61,7 @@ public abstract class BookButton extends Button {
         return new Builder(message, onPress, iconOnly);
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static class Builder {
         private final Component message;
         private final OnPress onPress;
@@ -119,7 +119,7 @@ public abstract class BookButton extends Button {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static class CenteredIcon extends BookButton {
         protected CenteredIcon(
                 int p_295914_,
@@ -147,7 +147,7 @@ public abstract class BookButton extends Button {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static class TextAndIcon extends BookButton {
         protected TextAndIcon(
                 int p_296442_,

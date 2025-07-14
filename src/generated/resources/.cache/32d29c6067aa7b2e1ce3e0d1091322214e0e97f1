@@ -1,4 +1,4 @@
-// 1.21.6	2025-07-13T10:51:00.9169772	Global Loot Modifiers : peoples_magic
+// 1.21.7	2025-07-13T19:52:57.820441	Global Loot Modifiers : peoples_magic
 73a6a74c20616aa3c0514cdc4419c5c6abaf0d5f data/neoforge/loot_modifiers/global_loot_modifiers.json
 b7d7b274f40eeadd9b45e5cf63195ad2d446204c data/peoples_magic/loot_modifiers/abandoned_mineshaft.json
 5e49ad1e948b5afbfe0142e0596a9a32441ac5b1 data/peoples_magic/loot_modifiers/ancient_city.json

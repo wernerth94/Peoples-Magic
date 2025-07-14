@@ -14,7 +14,6 @@ import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class FireballRenderer extends EntityRenderer<FireballProjectile, FireballRenderState> {
     private static final float MIN_CAMERA_DISTANCE_SQUARED = Mth.square(3.5F);
     private final FireballProjectileModel model;

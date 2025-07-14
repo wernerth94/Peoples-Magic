@@ -8,7 +8,7 @@ import net.neoforged.neoforge.client.gui.GuiLayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class FadingMessageOverlay implements GuiLayer {
     public static final FadingMessageOverlay instance = new FadingMessageOverlay();
     static final Font FONT = Minecraft.getInstance().font;

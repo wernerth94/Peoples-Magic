@@ -20,6 +20,7 @@ import de.peoples_magic.menu.book_of_magic.BookOfMagicScreen;
 import de.peoples_magic.overlays.FadingMessageOverlay;
 import de.peoples_magic.overlays.LearnedSpellsOverlay;
 import de.peoples_magic.overlays.ManaBarOverlay;
+import de.peoples_magic.payloads.PeoplesMagicClientPayloadRegistrar;
 import de.peoples_magic.payloads.PeoplesMagicPayloadRegistrar;
 import de.peoples_magic.potion.ModPotions;
 import de.peoples_magic.sound.ModSounds;
@@ -43,6 +44,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
@@ -217,7 +219,6 @@ public class PeoplesMagicMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
             EntityRenderers.register(ModEntities.FIREBALL_PROJECTILE.get(), FireballRenderer::new);
@@ -226,6 +227,11 @@ public class PeoplesMagicMod
             EntityRenderers.register(ModEntities.SKY_SCOURGE.get(), SkyScourgeRenderer::new);
             EntityRenderers.register(ModEntities.FOREST_GUARDIAN.get(), ForestGuardianRenderer::new);
             EntityRenderers.register(ModEntities.CUSTOM_LIGHTNING.get(), CustomLightningBoltRenderer::new);
+        }
+
+        @SubscribeEvent // on the mod event bus only on the physical client
+        public static void register(RegisterClientPayloadHandlersEvent event) {
+            PeoplesMagicClientPayloadRegistrar.register(event);
         }
 
         @SubscribeEvent

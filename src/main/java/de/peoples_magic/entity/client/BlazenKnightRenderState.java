@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.state.SkeletonRenderState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class BlazenKnightRenderState extends SkeletonRenderState {
 
     public boolean is_passenger;

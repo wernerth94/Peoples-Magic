@@ -151,7 +151,7 @@ public class PeoplesMagicPayloadRegistrar {
                 new MainThreadPayloadHandler<>(UpdateCooldownsClientHandler::handleDataOnMain)
         );
 
-        registrar.commonBidirectional(
+        registrar.playBidirectional(
                 UpdateKnowledgePayload.TYPE,
                 UpdateKnowledgePayload.STREAM_CODEC,
                 new MainThreadPayloadHandler<>(UpdateKnowledgeClientHandler::handleDataOnMain)

@@ -3,7 +3,7 @@ package de.peoples_magic.keymaps;
 import de.peoples_magic.payloads.spells.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import static de.peoples_magic.keymaps.PeoplesMagicKeyMaps.*;
 
@@ -13,28 +13,28 @@ public class KeyPressHandler {
     @SubscribeEvent
     public void onClientTick(ClientTickEvent.Post event) {
         while (SPELL_ABSORPTION_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastAbsorptionPayload(-1));
+            ClientPacketDistributor.sendToServer(new CastAbsorptionPayload(-1));
         }
         while (SPELL_REPEL_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastRepelPayload(-1));
+            ClientPacketDistributor.sendToServer(new CastRepelPayload(-1));
         }
         while (SPELL_FIREBALL_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastFireballPayload(-1));
+            ClientPacketDistributor.sendToServer(new CastFireballPayload(-1));
         }
         while (SPELL_ICE_CONE_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastIceconePayload(-1));
+            ClientPacketDistributor.sendToServer(new CastIceconePayload(-1));
         }
         while (SPELL_AETHER_GRIP_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastAetherGripPayload(-1));
+            ClientPacketDistributor.sendToServer(new CastAetherGripPayload(-1));
         }
         while (SPELL_HASTE_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastHastePayload(-1));
+            ClientPacketDistributor.sendToServer(new CastHastePayload(-1));
         }
         while (SPELL_FARMING_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastFarmingPayload(-1));
+            ClientPacketDistributor.sendToServer(new CastFarmingPayload(-1));
         }
         while (SPELL_SUMMON_ALLY_MAPPING.get().consumeClick()) {
-            PacketDistributor.sendToServer(new CastSummonAllyPayload(-1));
+            ClientPacketDistributor.sendToServer(new CastSummonAllyPayload(-1));
         }
     }
 }

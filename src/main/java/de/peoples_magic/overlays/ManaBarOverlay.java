@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class ManaBarOverlay implements GuiLayer {
     public static final ManaBarOverlay instance = new ManaBarOverlay();
     static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
