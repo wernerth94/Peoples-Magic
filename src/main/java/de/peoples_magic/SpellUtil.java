@@ -446,7 +446,7 @@ public class SpellUtil {
     public static void spell_fail_sound(Player player) {
         player.level().playSound(null, player.blockPosition(),
                     SoundEvents.DYE_USE, SoundSource.PLAYERS,
-                    0.5f, 2f);
+                    0.8f, 2f);
     }
 
     public static void spell_fail_indicators(ServerPlayer server_player, String spell_name, boolean enough_mana, boolean no_cd) {

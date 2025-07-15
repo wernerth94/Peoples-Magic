@@ -14,10 +14,7 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -30,12 +27,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -97,13 +96,18 @@ public class ForestGuardian extends Creaking {
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 120)
-                .add(Attributes.MOVEMENT_SPEED, .4D)
+                .add(Attributes.MOVEMENT_SPEED, .3D)
                 .add(Attributes.ATTACK_DAMAGE, 15)
                 .add(Attributes.ATTACK_KNOCKBACK, 1f)
                 .add(Attributes.FOLLOW_RANGE, FOLLOW_DISTANCE)
                 .add(Attributes.STEP_HEIGHT, 1.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 4.0)
                 ;
+    }
+
+    @Override
+    public boolean canCollideWith(Entity entity) {
+        return super.canCollideWith(entity);
     }
 
     @Override
@@ -144,6 +148,19 @@ public class ForestGuardian extends Creaking {
             return;
         }
         this.target = next_target;
+        this.setTarget(this.target);
+
+        if (EventHooks.canEntityGrief(level, this)) {
+            AABB aabb = this.getBoundingBox().inflate(0.5);
+
+            for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                BlockState blockstate = level.getBlockState(blockpos);
+                Block block = blockstate.getBlock();
+                if (block instanceof LeavesBlock) {
+                    level.destroyBlock(blockpos, true, this);
+                }
+            }
+        }
 
 
         if (this.target != null) {
@@ -153,15 +170,13 @@ public class ForestGuardian extends Creaking {
                 stuck_detection_counter++;
             }
             this.last_position = new Vec3(this.position().x, this.position().y, this.position().z);
-            if (stuck_detection_counter > 40) {
+            if (stuck_detection_counter > 20*10) {
                 stuck_detection_counter = 0;
-                this.state = AIState.RETREATING;
-                this.first_tree_search = true;
-                this.find_tree_timer = 9999;
+                this.state = AIState.APPROACHING;
             }
             // Attack overwrite
             ticks_since_last_attack++;
-            if (ticks_since_last_attack > 15 * 20) {
+            if (ticks_since_last_attack > 10 * 20) {
                 ticks_since_last_attack = 0;
                 this.state = AIState.APPROACHING;
             }
@@ -181,7 +196,7 @@ public class ForestGuardian extends Creaking {
 
 
     private void do_approach() {
-        while (approaching_direction.length() == 0) {
+        if (approaching_direction.length() == 0) {
             int x = RandomGenerator.getDefault().nextInt(-1, 2);
             int z = RandomGenerator.getDefault().nextInt(-1, 2);
             approaching_direction = new Vec3(x, 0, z);
@@ -192,7 +207,7 @@ public class ForestGuardian extends Creaking {
             approach_timer = 0;
             this.target_position = this.target.position().add(approaching_direction);
             this.navigation.stop();
-            this.navigation.moveTo(this.target_position.x, this.target_position.y, this.target_position.z, 0.8);
+            this.navigation.moveTo(this.target_position.x, this.target_position.y, this.target_position.z, 1);
         }
 
         if (this.position().distanceTo(this.target_position) < 1.5) {
@@ -202,6 +217,7 @@ public class ForestGuardian extends Creaking {
             this.approaching_direction = Vec3.ZERO;
             this.tree_to_hide = null;
             this.ticks_since_last_attack = 0;
+            this.stuck_detection_counter = 0;
             doHurtTarget((ServerLevel) this.level(), this.target);
             this.target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 2, false, false));
         }
@@ -304,6 +320,8 @@ public class ForestGuardian extends Creaking {
             this.first_tree_search = true;
             this.stuck_detection_counter = 0;
             this.last_position = this.position();
+            this.target = null;
+            this.setTarget(null);
         }
     }
 
