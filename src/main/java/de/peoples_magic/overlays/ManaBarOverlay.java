@@ -18,7 +18,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 public class ManaBarOverlay implements GuiLayer {
     public static final ManaBarOverlay instance = new ManaBarOverlay();
-    static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
+    static final int TEXT_COLOR = 0xFFFFFFFF;
     public final static ResourceLocation TEXTURE = Util.rec_loc("textures/gui/mana_bar_icons.png");
     private long no_mana_flash_start_time;
 

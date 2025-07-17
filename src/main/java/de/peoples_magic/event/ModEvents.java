@@ -27,6 +27,7 @@ import net.neoforged.neoforge.event.village.WandererTradesEvent;
 import net.neoforged.neoforge.server.command.ConfigCommand;
 
 import java.util.List;
+import java.util.Optional;
 
 @EventBusSubscriber(modid = PeoplesMagicMod.MOD_ID)
 public class ModEvents {
@@ -60,10 +61,10 @@ public class ModEvents {
         if (event.getType() == VillagerProfession.LIBRARIAN) {
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
 
-            add_all_enchants(registry, trades, 1, 5, 1);
-            add_all_enchants(registry, trades, 2, 5, 5);
-            add_all_enchants(registry, trades, 3, 5, 10);
-            add_all_enchants(registry, trades, 5, 5, 30);
+//            add_all_enchants(registry, trades, 1, 5, 1);
+//            add_all_enchants(registry, trades, 2, 5, 5);
+//            add_all_enchants(registry, trades, 3, 5, 10);
+//            add_all_enchants(registry, trades, 5, 5, 30);
         }
     }
 
@@ -73,20 +74,20 @@ public class ModEvents {
         List<ResourceKey<Enchantment>> all_enchants = List.of(ModEnchantments.MANA_REGEN, ModEnchantments.MAX_MANA);
 
         for (ResourceKey<Enchantment> ench : all_enchants) {
-            trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 10),
+            trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 10), Optional.of(new ItemCost(Items.BOOK, 1)),
                     create_for_enchantment(registry.getOrThrow(ench), 1),
                     max_uses, xp, 0.1F)
             );
-            trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 20),
+            trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 20), Optional.of(new ItemCost(Items.BOOK, 1)),
                     create_for_enchantment(registry.getOrThrow(ench), 2),
                     max_uses, xp, 0.1F)
             );
-            trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 30),
+            trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 30), Optional.of(new ItemCost(Items.BOOK, 1)),
                     create_for_enchantment(registry.getOrThrow(ench), 3),
                     max_uses, xp, 0.1F)
             );
             if (ench == ModEnchantments.MANA_LEECH) {
-                trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 40),
+                trades.get(level).add((pTrader, pRandom) -> new MerchantOffer(new ItemCost(Items.EMERALD, 40), Optional.of(new ItemCost(Items.BOOK, 1)),
                         create_for_enchantment(registry.getOrThrow(ench), 4),
                         max_uses, xp, 0.1F)
                 );

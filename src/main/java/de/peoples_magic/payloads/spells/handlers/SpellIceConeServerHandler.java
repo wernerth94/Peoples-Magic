@@ -64,7 +64,7 @@ public class SpellIceConeServerHandler {
         }
 
         List<Vec3> pois = new ArrayList<>();
-        for (float mult = 1f; mult <= 10f; mult += 2f) {
+        for (float mult = 0f; mult <= 10f; mult += 2f) {
             pois.add(player.position().add(0, 0.8, 0).add(direction.scale(mult)));
         }
         int entity_hit_count = 0;

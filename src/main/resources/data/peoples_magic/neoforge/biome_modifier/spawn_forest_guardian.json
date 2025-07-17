@@ -5,6 +5,6 @@
 		"type": "peoples_magic:forest_guardian",
 		"maxCount": 1,
 		"minCount": 1,
-		"weight": 1
+		"weight": 0.25
 	}
 }

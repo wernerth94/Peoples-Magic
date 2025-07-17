@@ -1,0 +1,8 @@
+{
+	"replace": false,
+	"values": [
+		"peoples_magic:max_mana",
+		"peoples_magic:mana_regen",
+		"peoples_magic:mana_leech"
+	]
+}
