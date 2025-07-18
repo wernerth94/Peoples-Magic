@@ -75,6 +75,7 @@ public class ForestGuardian extends Creaking {
     public ForestGuardian(EntityType<? extends ForestGuardian> entityType, Level level) {
         super(entityType, level);
 
+        this.setPersistenceRequired();
         this.setup_done = false;
         this.phase = 1;
         this.target_conditions = TargetingConditions.forCombat().ignoreLineOfSight().range(FOLLOW_DISTANCE).selector(null);

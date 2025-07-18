@@ -30,9 +30,6 @@ public class ModAttachments {
             "player_mana", () -> AttachmentType.builder(() -> Double.valueOf(0))
                     .serialize(Codec.DOUBLE.fieldOf("value")).sync(ByteBufCodecs.DOUBLE).build()
     );
-//    public static final Supplier<AttachmentType<Boolean>> PLAYER_SYNCED = ATTACHMENT_TYPES.register(
-//            "player_synced_after_death", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("value")).build()
-//    );
 
     public static final Supplier<AttachmentType<Integer>> ABSORPTION_KNOWLEDGE = ATTACHMENT_TYPES.register(
             "absorption_knowledge", () -> AttachmentType.builder(() -> 0)

@@ -69,7 +69,7 @@ public class BlazenKnight extends WitherSkeleton {
 
     public BlazenKnight(EntityType<? extends BlazenKnight> entityType, Level level) {
         super(entityType, level);
-
+        this.setPersistenceRequired();
         this.setup_done = false;
         this.phase = 1;
         this.target_conditions = TargetingConditions.forCombat().range(FOLLOW_DISTANCE).selector(null);

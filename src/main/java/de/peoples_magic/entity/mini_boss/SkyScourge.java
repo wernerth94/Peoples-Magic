@@ -68,7 +68,7 @@ public class SkyScourge extends Phantom {
 
     public SkyScourge(EntityType<? extends SkyScourge> entityType, Level level) {
         super(entityType, level);
-
+        this.setPersistenceRequired();
         this.setup_done = false;
         this.phase = 1;
         this.circle_angle = 0.0f;
