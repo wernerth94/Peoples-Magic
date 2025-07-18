@@ -32,7 +32,7 @@ public class SpellRepelServerHandler {
                     float duration_sec = Util.get_or_last(Config.repel_durations, spell_level);
                     player.addEffect(new MobEffectInstance(ModEffects.REPEL_EFFECT, (int)(duration_sec * 20)));
                     Util.update_player_mana(player, player_mana - cost);
-                    Util.set_cooldown(player, ModAttachments.REPEL_ACTIVE_CD.get(), Util.get_or_last(Config.repel_cds, spell_level));
+                    player.setData(ModAttachments.REPEL_ACTIVE_CD.get(), Util.get_or_last(Config.repel_cds, spell_level));
                     player.setData(ModAttachments.REPEL_CAST, System.currentTimeMillis());
                     player.level().playSound(null, player.blockPosition(),
                             SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.PLAYERS, 0.6f, 0.7f);

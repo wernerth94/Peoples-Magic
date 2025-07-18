@@ -114,10 +114,10 @@ public class PeoplesMagicMod
         for (ServerLevel level : event.getServer().getAllLevels()) {
             for (ServerPlayer player : level.getPlayers(player -> true)) {
                 // Sync info to new player instance after death or log in
-                if (!player.getData(ModAttachments.PLAYER_SYNCED)) {
-                    Util.sync_all_player_data(player);
-                    player.setData(ModAttachments.PLAYER_SYNCED, true);
-                }
+//                if (!player.getData(ModAttachments.PLAYER_SYNCED)) {
+//                    Util.sync_all_player_data(player);
+//                    player.setData(ModAttachments.PLAYER_SYNCED, true);
+//                }
                 // Active cooldowns
                 Util.tick_down_cooldowns(player, reduce_cds_by);
                 // Natural mana regeneration
@@ -181,7 +181,6 @@ public class PeoplesMagicMod
     public void onPlayerConnect(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getEntity().level().isClientSide) {
             ServerPlayer server_player = (ServerPlayer) event.getEntity();
-            Util.sync_all_player_data(server_player);
             if (!server_player.getData(ModAttachments.BOM_RECEIVED)) {
                 ItemStack bom = new ItemStack(ModItems.BOOK_OF_MAGIC.get(), 1);
                 server_player.getInventory().add(bom);
@@ -192,6 +191,7 @@ public class PeoplesMagicMod
 
     @SubscribeEvent
     public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
+        // automatic attachment sync from Neoforge does not work in dimension change
         ServerPlayer server_player = (ServerPlayer) event.getEntity();
         Util.sync_all_player_data(server_player);
     }

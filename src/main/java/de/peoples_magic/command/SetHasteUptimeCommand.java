@@ -27,7 +27,7 @@ public class SetHasteUptimeCommand {
 
     private int execute(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.HASTE_UPTIME.get(), (float)value);
-        PacketDistributor.sendToPlayer(serverPlayer, new HasteUptimePayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new HasteUptimePayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }

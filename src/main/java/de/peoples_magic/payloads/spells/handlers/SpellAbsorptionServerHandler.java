@@ -42,10 +42,10 @@ public class SpellAbsorptionServerHandler {
                     Util.update_player_mana(player, Integer.valueOf(player_mana - cost));
                     if (knowledge == 2) {
                         // CD expertise
-                        Util.set_cooldown(player, ModAttachments.ABSORPTION_ACTIVE_CD.get(), Util.get_or_last(Config.absorption_cds, spell_level) / 2);
+                        player.setData(ModAttachments.ABSORPTION_ACTIVE_CD.get(), Util.get_or_last(Config.absorption_cds, spell_level) / 2);
                     }
                     else {
-                        Util.set_cooldown(player, ModAttachments.ABSORPTION_ACTIVE_CD.get(), Util.get_or_last(Config.absorption_cds, spell_level));
+                        player.setData(ModAttachments.ABSORPTION_ACTIVE_CD.get(), Util.get_or_last(Config.absorption_cds, spell_level));
                     }
                     player.setData(ModAttachments.LAST_ABSORPTION_CAST, System.currentTimeMillis());
                     player.level().playSound(null, player.blockPosition(),

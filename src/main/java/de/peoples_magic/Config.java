@@ -17,12 +17,10 @@ public class Config
     private static final ModConfigSpec.IntValue TEST_MODE = BUILDER.
             defineInRange("test_mode", 0, 0, 1);
 
-//    private static final ModConfigSpec.DoubleValue MAX_MANA = BUILDER
-//            .comment("Maximum amount of mana players can hold. Negative mana is not allowed")
-//            .defineInRange("max_mana", 100F, 0, Double.MAX_VALUE);
-//    private static final ModConfigSpec.DoubleValue BASE_MANA_REGENERATION = BUILDER
-//            .comment("Amount of mana players naturally regenerates per second")
-//            .defineInRange("base_mana_regeneration", 0.25F, 0, Double.MAX_VALUE);  // 0.25 mana / s
+
+    private static final ModConfigSpec.DoubleValue BOSS_SPAWN_PROBABILITY = BUILDER
+            .comment("Multiplier of the chance that a boss spawns (0.5 = 50%)")
+            .defineInRange("boss_spawn_probability", 0.5f, 0f, 1f);
     private static final ModConfigSpec.DoubleValue MANA_WELL_MANA_PER_SECOND = BUILDER
             .comment("Amount of mana mana pools gain per second")
             .defineInRange("mana_well_mana_per_second", 0.33f, 0.2f, 20f);
@@ -194,6 +192,7 @@ public class Config
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static boolean test_mode;
+    public static double boss_spawn_probability;
     public static int blazen_knight_health;
     public static int blazen_knight_attack;
     public static int forest_guardian_health;
@@ -260,6 +259,7 @@ public class Config
     static void onLoad(final ModConfigEvent event)
     {
         test_mode = (TEST_MODE.get() == 1);
+        boss_spawn_probability = BOSS_SPAWN_PROBABILITY.get();
         blazen_knight_health = BLAZEN_KNIGHT_HEALTH.get();
         blazen_knight_attack = BLAZEN_KNIGHT_ATTACK.get();
         forest_guardian_health = FOREST_GUARDIAN_HEALTH.get();

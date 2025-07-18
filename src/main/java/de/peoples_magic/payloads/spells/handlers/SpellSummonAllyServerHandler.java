@@ -31,13 +31,13 @@ public class SpellSummonAllyServerHandler {
                 float spell_cd = player.getData(ModAttachments.SUMMON_ALLY_ACTIVE_CD.get());
                 if (Config.test_mode || (player_mana >= cost && spell_cd == 0.0f)) {
                     if (knowledge == 2) {
-                        Util.set_cooldown(player, ModAttachments.SUMMON_ALLY_ACTIVE_CD.get(), Util.get_or_last(Config.summon_ally_cds, spell_level) / 2);
+                        player.setData(ModAttachments.SUMMON_ALLY_ACTIVE_CD.get(), Util.get_or_last(Config.summon_ally_cds, spell_level) / 2);
                     }
                     else if (knowledge == 3) {
-                        Util.set_cooldown(player, ModAttachments.SUMMON_ALLY_ACTIVE_CD.get(), Util.get_or_last(Config.summon_ally_cds, spell_level) * 2);
+                        player.setData(ModAttachments.SUMMON_ALLY_ACTIVE_CD.get(), Util.get_or_last(Config.summon_ally_cds, spell_level) * 2);
                     }
                     else {
-                        Util.set_cooldown(player, ModAttachments.SUMMON_ALLY_ACTIVE_CD.get(), Util.get_or_last(Config.summon_ally_cds, spell_level));
+                        player.setData(ModAttachments.SUMMON_ALLY_ACTIVE_CD.get(), Util.get_or_last(Config.summon_ally_cds, spell_level));
                     }
                     Util.update_player_mana(player, player_mana - cost);
                     SpellUtil.increase_summon_ally_summons((ServerPlayer) player, 1);

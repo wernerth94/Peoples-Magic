@@ -22,7 +22,6 @@ public class UnlearnAllSpellsCommand {
         ModAttachments.all_spell_knowledge().forEach((name, spell) -> {
             player.setData(spell, 0);
         });
-        Util.sync_all_spell_knowledge(player);
         return Command.SINGLE_SUCCESS;
     }
 }

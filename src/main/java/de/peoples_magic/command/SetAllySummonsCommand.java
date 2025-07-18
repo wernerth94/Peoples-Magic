@@ -27,7 +27,7 @@ public class SetAllySummonsCommand {
 
     private int exec(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.SUMMON_ALLY_SUMMONS, value);
-        PacketDistributor.sendToPlayer(serverPlayer, new SummonAllySummonsPayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new SummonAllySummonsPayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }

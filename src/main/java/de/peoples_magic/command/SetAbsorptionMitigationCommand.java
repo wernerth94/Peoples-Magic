@@ -30,7 +30,7 @@ public class SetAbsorptionMitigationCommand {
 
     private int set_mitigation(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.ABSORPTION_MITIGATION, (float)value);
-        PacketDistributor.sendToPlayer(serverPlayer, new AbsorptionMitigationPayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new AbsorptionMitigationPayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }

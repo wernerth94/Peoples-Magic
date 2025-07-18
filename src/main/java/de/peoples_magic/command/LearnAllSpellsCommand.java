@@ -22,7 +22,6 @@ public class LearnAllSpellsCommand {
         ModAttachments.all_spell_knowledge().forEach((name, spell) -> {
             player.setData(spell, Math.max(player.getData(spell), 1));
         });
-        Util.sync_all_spell_knowledge(player);
         return Command.SINGLE_SUCCESS;
     }
 }

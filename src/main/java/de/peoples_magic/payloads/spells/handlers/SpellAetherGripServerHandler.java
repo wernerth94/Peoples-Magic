@@ -45,7 +45,7 @@ public class SpellAetherGripServerHandler {
                         level.addFreshEntity(projectile);
 
                         Util.update_player_mana(player, player_mana - cost);
-                        Util.set_cooldown(player, ModAttachments.AETHER_GRIP_ACTIVE_CD.get(), Util.get_or_last(Config.aether_grip_cds, spell_level));
+                        player.setData(ModAttachments.AETHER_GRIP_ACTIVE_CD.get(), Util.get_or_last(Config.aether_grip_cds, spell_level));
                         player.level().playSound(null, player.blockPosition(),
                                 SoundEvents.TRIDENT_THROW.value(), SoundSource.PLAYERS, 0.6f, 0.1f);
                     }

@@ -27,7 +27,7 @@ public class SetFarmingBreedsCommand {
 
     private int execute(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.FARMING_ANIMALS_BRED.get(), value);
-        PacketDistributor.sendToPlayer(serverPlayer, new FarmingAnimalsBredPayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new FarmingAnimalsBredPayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }

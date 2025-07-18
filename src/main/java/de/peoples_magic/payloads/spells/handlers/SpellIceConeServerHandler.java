@@ -44,7 +44,7 @@ public class SpellIceConeServerHandler {
                     }
 
                     Util.update_player_mana(player, player_mana - cost);
-                    Util.set_cooldown(player, ModAttachments.ICE_CONE_ACTIVE_CD.get(), Util.get_or_last(Config.ice_cone_cds, spell_level));
+                    player.setData(ModAttachments.ICE_CONE_ACTIVE_CD.get(), Util.get_or_last(Config.ice_cone_cds, spell_level));
                     level.playSound(null, player.blockPosition(), ModSounds.ICE_CONE_CAST.get(), SoundSource.PLAYERS, 1f, 0.7f);
                 }
                 else {

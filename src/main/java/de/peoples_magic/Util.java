@@ -31,49 +31,13 @@ public class Util {
     public static void tick_down_cooldowns(Player player, float amount) {
         for (AttachmentType<Float> spell : all_spell_cooldowns()) {
             if (player.getData(spell) > 0) {
-                set_cooldown(player, spell, Math.max(0f, player.getData(spell) - amount));
+                player.setData(spell, Math.max(0f, player.getData(spell) - amount));
             }
         }
     }
 
-    public static void set_cooldown(Player player, AttachmentType<Float> spell, float seconds) {
-        player.setData(spell, seconds);
-        if (ABSORPTION_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("absorption", seconds));
-        }
-        else if (REPEL_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("repel", seconds));
-        }
-        else if (FIREBALL_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("fireball", seconds));
-        }
-        else if (ICE_CONE_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("ice_cone", seconds));
-        }
-        else if (AETHER_GRIP_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("aether_grip", seconds));
-        }
-        else if (HASTE_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("haste", seconds));
-        }
-        else if (FARMING_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("farming", seconds));
-        }
-        else if (SUMMON_ALLY_ACTIVE_CD.get() == spell) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateCooldownsPayload("summon_ally", seconds));
-        }
-        else {
-            throw new RuntimeException(String.format("Spell not recognized %s", spell.getClass()));
-        }
-    }
-
-    public static void sync_player_mana(Player player) {
-        PacketDistributor.sendToPlayer((ServerPlayer) player, new UpdateManaPayload(player.getData(PLAYER_MANA)));
-    }
-
     public static void update_player_mana(Player player, double new_amount) {
         player.setData(PLAYER_MANA.get(), Math.max(0f, Math.min(player.getAttributeValue(ModAttributes.MAX_MANA), new_amount)));
-        Util.sync_player_mana(player);
     }
 
     public static void update_spell_knowledge(ServerPlayer player, String name, int amount) {
@@ -107,7 +71,7 @@ public class Util {
     }
 
     public static void sync_all_player_data(ServerPlayer server_player) {
-        sync_player_mana(server_player);
+        PacketDistributor.sendToPlayer(server_player, new UpdateManaPayload(server_player.getData(PLAYER_MANA)));
         sync_all_spell_knowledge(server_player);
         sync_all_spell_data(server_player);
     }

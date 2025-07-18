@@ -37,7 +37,6 @@ public class SuspiciousTome extends Item implements TooltipProvider {
             for (AttachmentType<Integer> spell : ModAttachments.all_spell_knowledge().values()) {
                 server_player.setData(spell, Math.min(1, server_player.getData(spell)));
             }
-            Util.sync_all_spell_knowledge(server_player);
             PacketDistributor.sendToPlayer(server_player, new DisplayMessagePayload("Expertises have been cleared", 4000));
             level.playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1, 1);

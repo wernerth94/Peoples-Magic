@@ -44,7 +44,7 @@ import java.util.random.RandomGenerator;
 
 
 public class ForestGuardian extends Creaking {
-    private static final double FOLLOW_DISTANCE = 50F;
+    private static final double FOLLOW_DISTANCE = 20F;
     private static final float SEARCH_WIDTH = 20.0f;
 
     private final ServerBossEvent boss_event = new ServerBossEvent(Component.literal("Guardian of the Forest"),
@@ -380,6 +380,9 @@ public class ForestGuardian extends Creaking {
     ) {
         if (spawnType == EntitySpawnReason.SPAWNER) {
             return true;
+        }
+        if (level.getRandom().nextFloat() > Config.boss_spawn_probability) {
+            return false;
         }
         if (!level.canSeeSky(pos)) {
 //            System.out.println("Guardian of the Forest cant see the sky at " + pos);

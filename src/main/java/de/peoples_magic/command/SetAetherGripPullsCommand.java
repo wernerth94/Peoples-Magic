@@ -27,7 +27,7 @@ public class SetAetherGripPullsCommand {
 
     private int execute(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.AETHER_GRIP_PULLS, value);
-        PacketDistributor.sendToPlayer(serverPlayer, new AetherGripPullsPayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new AetherGripPullsPayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }

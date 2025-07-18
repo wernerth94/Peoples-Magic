@@ -23,7 +23,6 @@ public class ResetExpertisesCommand {
         for (AttachmentType<Integer> spell : ModAttachments.all_spell_knowledge().values()) {
             player.setData(spell, Math.min(1, player.getData(spell)));
         }
-        Util.sync_all_spell_knowledge(player);
         return Command.SINGLE_SUCCESS;
     }
 }

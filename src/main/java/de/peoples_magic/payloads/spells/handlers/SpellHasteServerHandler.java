@@ -10,6 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
+import static de.peoples_magic.attachments.ModAttachments.HASTE_IS_ACTIVE;
+
 public class SpellHasteServerHandler {
 
     public static void handleDataOnMain(final CastHastePayload data, final IPayloadContext context) {
@@ -23,7 +25,7 @@ public class SpellHasteServerHandler {
                     int player_mana = player.getData(ModAttachments.PLAYER_MANA.get()).intValue();
                     float spell_cd = player.getData(ModAttachments.HASTE_ACTIVE_CD.get());
                     if (Config.test_mode || (player_mana >= 1 && spell_cd == 0.0f)) {
-                        SpellUtil.set_haste_is_active((ServerPlayer) player, true);
+                        player.setData(HASTE_IS_ACTIVE, true);
                         player.setData(ModAttachments.HASTE_LAST_REFRESHED, 1000); // turn effect on in the same server tick
                     }
                     else {
@@ -33,8 +35,8 @@ public class SpellHasteServerHandler {
                 }
                 else {
                     // Turn off
-                    SpellUtil.set_haste_is_active((ServerPlayer) player, false);
-                    Util.set_cooldown(player, ModAttachments.HASTE_ACTIVE_CD.get(), Util.get_or_last(Config.haste_cds, spell_level));
+                    player.setData(HASTE_IS_ACTIVE, false);
+                    player.setData(ModAttachments.HASTE_ACTIVE_CD.get(), Util.get_or_last(Config.haste_cds, spell_level));
                 }
             }
         }

@@ -328,13 +328,16 @@ public class BlazenKnight extends WitherSkeleton {
     public static boolean checkSpawnRules(
             EntityType<? extends Monster> type, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random
     ) {
+        if (spawnType == EntitySpawnReason.SPAWNER) {
+            return true;
+        }
+        if (level.getRandom().nextFloat() > Config.boss_spawn_probability) {
+            return false;
+        }
         BlockPos blockpos = pos.below();
         int min_dist = 300;
         List<BlazenKnight> others = level.getEntitiesOfClass(BlazenKnight.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,
                 pos.getX()+min_dist, pos.getY()+50, pos.getZ()+min_dist));
-        if (spawnType == EntitySpawnReason.SPAWNER) {
-            return true;
-        }
 
         if (others.size() > 0) {
             System.out.println("other blazen knight spawned at " + others.get(0).position());

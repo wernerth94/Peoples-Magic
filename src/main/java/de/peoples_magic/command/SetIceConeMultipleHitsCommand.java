@@ -27,7 +27,7 @@ public class SetIceConeMultipleHitsCommand {
 
     private int execute(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.ICE_CONE_MULTIPLE_HIT, value);
-        PacketDistributor.sendToPlayer(serverPlayer, new IceConeHitsPayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new IceConeHitsPayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }

@@ -33,10 +33,10 @@ public class SpellFireballServerHandler {
 
                     Util.update_player_mana(player, Integer.valueOf(player_mana - cost));
                     if (knowledge == 4) {
-                        Util.set_cooldown(player, ModAttachments.FIREBALL_ACTIVE_CD.get(), Util.get_or_last(Config.fireball_cds, spell_level) / 2);
+                        player.setData(ModAttachments.FIREBALL_ACTIVE_CD.get(), Util.get_or_last(Config.fireball_cds, spell_level) / 2);
                     }
                     else {
-                        Util.set_cooldown(player, ModAttachments.FIREBALL_ACTIVE_CD.get(), Util.get_or_last(Config.fireball_cds, spell_level));
+                        player.setData(ModAttachments.FIREBALL_ACTIVE_CD.get(), Util.get_or_last(Config.fireball_cds, spell_level));
                     }
                     level.playSound(null, player.position().x, player.position().y, player.position().z,
                             SoundEvents.WIND_CHARGE_BURST, SoundSource.PLAYERS, 0.5f, 0.8f);

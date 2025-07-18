@@ -110,7 +110,7 @@ public class SpellUtil {
         float new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.absorption_progression, new_amount);
         player.setData(ABSORPTION_MITIGATION, new_amount);
-        PacketDistributor.sendToPlayer(player, new AbsorptionMitigationPayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new AbsorptionMitigationPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Absorption is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
@@ -124,7 +124,7 @@ public class SpellUtil {
         int new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.repel_progression, new_amount);
         player.setData(REPEL_SPIDERS_REPELLED, new_amount);
-        PacketDistributor.sendToPlayer(player, new RepelSpidersPayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new RepelSpidersPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Repel is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
@@ -138,7 +138,7 @@ public class SpellUtil {
         int new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.fireball_progression, new_amount);
         player.setData(FIREBALL_HITS, new_amount);
-        PacketDistributor.sendToPlayer(player, new FireballHitPayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new FireballHitPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Fireball is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
@@ -152,7 +152,7 @@ public class SpellUtil {
         int new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.aether_grip_progression, new_amount);
         player.setData(AETHER_GRIP_PULLS, new_amount);
-        PacketDistributor.sendToPlayer(player, new AetherGripPullsPayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new AetherGripPullsPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Aether Grip is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
@@ -166,7 +166,7 @@ public class SpellUtil {
         int new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.ice_cone_progression, new_amount);
         player.setData(ICE_CONE_MULTIPLE_HIT, new_amount);
-        PacketDistributor.sendToPlayer(player, new IceConeHitsPayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new IceConeHitsPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Ice Cone is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
@@ -180,7 +180,7 @@ public class SpellUtil {
         float new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.haste_progression, (int)new_amount/20f);
         player.setData(HASTE_UPTIME, new_amount);
-        PacketDistributor.sendToPlayer(player, new HasteUptimePayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new HasteUptimePayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Haste is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
@@ -194,17 +194,12 @@ public class SpellUtil {
         int new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.summon_ally_progression, new_amount);
         player.setData(SUMMON_ALLY_SUMMONS, new_amount);
-        PacketDistributor.sendToPlayer(player, new SummonAllySummonsPayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new SummonAllySummonsPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Summon Ally is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
-    }
-
-    public static void set_haste_is_active(ServerPlayer player, boolean is_active) {
-        player.setData(HASTE_IS_ACTIVE, is_active);
-        PacketDistributor.sendToPlayer(player, new HasteIsActivePayload(is_active));
     }
 
     public static void increase_animals_bred(ServerPlayer player, int amount) {
@@ -213,17 +208,12 @@ public class SpellUtil {
         int new_amount = old_amount + amount;
         int new_level = level_from_progression(Config.farming_progression, new_amount);
         player.setData(FARMING_ANIMALS_BRED, new_amount);
-        PacketDistributor.sendToPlayer(player, new FarmingAnimalsBredPayload(new_amount));
+//        PacketDistributor.sendToPlayer(player, new FarmingAnimalsBredPayload(new_amount));
         if (new_level > old_level) {
             PacketDistributor.sendToPlayer(player, new DisplayMessagePayload(String.format("Farming is now level %d", new_level), 4000));
             player.level().playSound(null, player.position().x, player.position().y, player.position().z,
                     SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 0.8f);
         }
-    }
-
-    public static void set_farming_is_active(ServerPlayer player, boolean is_active) {
-        player.setData(FARMING_IS_ACTIVE, is_active);
-        PacketDistributor.sendToPlayer(player, new FarmingIsActivePayload(is_active));
     }
 
     public static void set_aether_grip_entity(ServerPlayer player, @Nullable Entity entity) {
@@ -235,7 +225,7 @@ public class SpellUtil {
             id =  entity.getId();
         }
         player.setData(AETHER_GRIP_ACTIVE_ENTITY, id);
-        PacketDistributor.sendToPlayer(player, new AetherGripEntityPayload(id));
+//        PacketDistributor.sendToPlayer(player, new AetherGripEntityPayload(id));
     }
 
     public static void tick_haste(ServerPlayer player) {
@@ -261,8 +251,8 @@ public class SpellUtil {
                 Util.update_player_mana(player, player_mana - cost);
             }
             else {
-                SpellUtil.set_haste_is_active(player, false);
-                Util.set_cooldown(player, ModAttachments.HASTE_ACTIVE_CD.get(), Util.get_or_last(Config.haste_cds, spell_level));
+                player.setData(HASTE_IS_ACTIVE, false);
+                player.setData(ModAttachments.HASTE_ACTIVE_CD.get(), Util.get_or_last(Config.haste_cds, spell_level));
             }
         }
     }
@@ -339,7 +329,6 @@ public class SpellUtil {
                 Util.update_player_mana(player, player_mana - cost);
                 player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.BEEHIVE_EXIT, SoundSource.PLAYERS, 2f, 0.5f);
-//                player.level().addParticle(ParticleTypes.ELECTRIC_SPARK, player.getX(), player.getY(), player.getZ(), 0.0, 0.0, 0.0);
                 if (animal_breeding) {
                     SpellUtil.increase_animals_bred(player, 1);
                 }

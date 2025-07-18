@@ -27,7 +27,7 @@ public class SetRepelSpidersRepelledCommand {
 
     private int execute(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.REPEL_SPIDERS_REPELLED.get(), value);
-        PacketDistributor.sendToPlayer(serverPlayer, new RepelSpidersPayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new RepelSpidersPayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }

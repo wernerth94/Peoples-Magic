@@ -27,7 +27,7 @@ public class SetFireballDmgCommand {
 
     private int set_fireball_hit(ServerPlayer source, ServerPlayer serverPlayer, int value){
         serverPlayer.setData(ModAttachments.FIREBALL_HITS, value);
-        PacketDistributor.sendToPlayer(serverPlayer, new FireballHitPayload(value));
+//        PacketDistributor.sendToPlayer(serverPlayer, new FireballHitPayload(value));
         return Command.SINGLE_SUCCESS;
     }
 }
