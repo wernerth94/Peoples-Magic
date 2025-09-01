@@ -8,15 +8,21 @@ import de.peoples_magic.effect.ModEffects;
 import de.peoples_magic.entity.spells.SummonedEntity;
 import de.peoples_magic.payloads.spells.CastIceconePayload;
 import de.peoples_magic.sound.ModSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -55,6 +61,7 @@ public class SpellIceConeServerHandler {
         }
     }
 
+
     private static void shoot_cone(Player player, ServerLevel level, int knowledge) {
         Vec3 direction = Util.angles_to_direction( player.getXRot(), player.getYRot(), 0);
         for (float mult = 2f; mult <= 10f; mult += 1f) {
@@ -67,10 +74,12 @@ public class SpellIceConeServerHandler {
         for (float mult = 0f; mult <= 10f; mult += 2f) {
             pois.add(player.position().add(0, 0.8, 0).add(direction.scale(mult)));
         }
+
+        int range = 10;
         int entity_hit_count = 0;
-        for (LivingEntity entity : level.getEntitiesOfClass(Monster.class, player.getBoundingBox().inflate(10))) {
-            if (!(entity instanceof SummonedEntity)) {
-                if (entity_hit(entity, pois)) {
+        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(range))) {
+            if (entity instanceof Enemy && !(entity instanceof SummonedEntity)) {
+                if (position_hit(entity.position(), pois)) {
                     do_hit_entity(entity, level, (ServerPlayer) player, knowledge);
                     entity_hit_count++;
                     if (entity_hit_count == 2) {
@@ -79,6 +88,33 @@ public class SpellIceConeServerHandler {
                 }
             }
         }
+
+        for (int x = player.getBlockX()-range; x <= player.getBlockX()+range; x++) {
+            for (int y = player.getBlockY()-range; y <= player.getBlockY()+range; y++) {
+                for (int z = player.getBlockZ()-range; z <= player.getBlockZ()+range; z++) {
+                    BlockPos pos = new BlockPos(x, y, z);
+                    BlockState state = level.getBlockState(pos);
+                    Block block = state.getBlock();
+                    if (block == Blocks.LAVA || block == Blocks.FIRE || block == Blocks.WATER) {
+                        if (position_hit(Vec3.atCenterOf(pos), pois)) {
+                            if (block == Blocks.LAVA) {
+                                level.setBlockAndUpdate(pos, Blocks.OBSIDIAN.defaultBlockState());
+                                level.playSound(null, player.blockPosition(), SoundEvents.LAVA_EXTINGUISH , SoundSource.PLAYERS, 0.8f, 1f);
+                            }
+                            else if (block == Blocks.FIRE) {
+                                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                                level.playSound(null, player.blockPosition(), SoundEvents.LAVA_EXTINGUISH , SoundSource.PLAYERS, 0.8f, 1f);
+                            }
+                            else if (block == Blocks.WATER) {
+                                level.setBlockAndUpdate(pos, Blocks.FROSTED_ICE.defaultBlockState());
+                                level.playSound(null, player.blockPosition(), ModSounds.ICE_CONE_CAST.get(), SoundSource.PLAYERS, 0.2f, 1f);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 
@@ -96,9 +132,9 @@ public class SpellIceConeServerHandler {
         }
 
         int entity_hit_count = 0;
-        for (LivingEntity entity : level.getEntitiesOfClass(Monster.class, player.getBoundingBox().inflate(10))) {
-            if (!(entity instanceof SummonedEntity)) {
-                if (entity.position().distanceTo(player.position()) <= 10f) {
+        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(10))) {
+            if (entity.position().distanceTo(player.position()) <= 10f) {
+                if (entity instanceof Enemy && !(entity instanceof SummonedEntity)) {
                     do_hit_entity(entity, level, (ServerPlayer) player, knowledge);
                     entity_hit_count++;
                     if (entity_hit_count == 2) {
@@ -113,24 +149,32 @@ public class SpellIceConeServerHandler {
     private static void do_hit_entity(LivingEntity entity, ServerLevel level, ServerPlayer player, int knowledge) {
         int spell_level = SpellUtil.get_ice_cone_level(player);
         entity.hurtServer(level, level.damageSources().magic(), Util.get_or_last(Config.ice_cone_damages, spell_level));
-        if (knowledge == 2) {
-            entity.addEffect(new MobEffectInstance(
-                    ModEffects.ABSOLUTE_ZERO_EFFECT,
-                    (int) (Util.get_or_last(Config.ice_cone_durations, spell_level) * 20f),
-                    0
-            ));
+        if (!entity.isAlive()) {
+            int award = net.neoforged.neoforge.event.EventHooks.getExperienceDrop(entity, player, 5);
+            ExperienceOrb.award(level, entity.position(), award);
         }
         else {
-            entity.addEffect(new MobEffectInstance(
-                    MobEffects.SLOWNESS,
-                    (int) (Util.get_or_last(Config.ice_cone_durations, spell_level) * 20f),
-                    Util.get_or_last(Config.ice_cone_amplifiers, spell_level)
-            ));
+            if (entity.isOnFire()) {
+                entity.extinguishFire();
+            }
+
+            if (knowledge == 2) {
+                entity.addEffect(new MobEffectInstance(
+                        ModEffects.ABSOLUTE_ZERO_EFFECT,
+                        (int) (Util.get_or_last(Config.ice_cone_durations, spell_level) * 20f),
+                        0
+                ));
+            } else {
+                entity.addEffect(new MobEffectInstance(
+                        MobEffects.SLOWNESS,
+                        (int) (Util.get_or_last(Config.ice_cone_durations, spell_level) * 20f),
+                        Util.get_or_last(Config.ice_cone_amplifiers, spell_level)
+                ));
+            }
         }
     }
 
-    private static boolean entity_hit(LivingEntity entity, List<Vec3> pois) {
-        Vec3 ent_pos = entity.position();
+    private static boolean position_hit(Vec3 ent_pos, List<Vec3> pois) {
         double last_dist = 99999F;
         for (int i = 0; i < pois.size(); i++) {
             Vec3 poi = pois.get(i);

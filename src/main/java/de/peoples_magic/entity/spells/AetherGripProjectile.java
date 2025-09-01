@@ -10,11 +10,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -84,10 +82,15 @@ public class AetherGripProjectile extends Entity {
     protected void onHitEntity(Entity other) {
         if (!this.level().isClientSide) {
             ServerLevel serverLevel = (ServerLevel) this.level();
-            if (other instanceof Monster target) {
+            if (other instanceof Enemy) {
+                LivingEntity target = (LivingEntity) other;
                 if (!(target instanceof SummonedEntity)) {
                     float damage = Util.get_or_last(Config.aether_grip_damages, spell_level);
                     target.hurtServer(serverLevel, this.damageSources().magic(), damage);
+                    if (!target.isAlive()) {
+                        int award = net.neoforged.neoforge.event.EventHooks.getExperienceDrop(target, this.owner, 3);
+                        ExperienceOrb.award((ServerLevel) this.level(), this.position(), award);
+                    }
                     if (this.already_reversed) {
                         if (knowledge == 2) {
                             Vec3 new_pos = this.position().add(this.getDeltaMovement().scale(1));

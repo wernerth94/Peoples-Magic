@@ -165,6 +165,7 @@ public class FireballProjectile extends AbstractArrow {
 
     @Override
     protected ItemStack getDefaultPickupItem() {
+        // deploy tactical salmon
         return new ItemStack(Items.SALMON);
     }
 }

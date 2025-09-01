@@ -1,6 +1,7 @@
 package de.peoples_magic.entity.mini_boss;
 
 import de.peoples_magic.Config;
+import de.peoples_magic.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
@@ -389,6 +390,19 @@ public class ForestGuardian extends Creaking {
 //            System.out.println("Guardian of the Forest cant see the sky at " + pos);
             return false;
         }
+
+        // don't spawn near lighting
+        for (int x = pos.getX()-14; x < pos.getX()+14; x++) {
+            for (int y = pos.getY()-14; y < pos.getY()+14; y++) {
+                for (int z = pos.getZ()-14; z < pos.getZ()+14; z++) {
+
+                    if (Util.is_lighting_block(level, new BlockPos(x, y, z))) {
+                        return false;
+                    }
+                }
+            }
+        }
+
         BlockPos blockpos = pos.below();
         int min_dist = 300;
         List<ForestGuardian> others = level.getEntitiesOfClass(ForestGuardian.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,

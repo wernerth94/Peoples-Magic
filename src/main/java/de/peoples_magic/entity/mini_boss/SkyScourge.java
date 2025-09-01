@@ -363,7 +363,14 @@ public class SkyScourge extends Phantom {
         }
         if (!level.canSeeSky(pos)) {
             return false;
+
         }
+
+        if (level.getRandom().nextFloat() > 1.0) {
+            // don't reduce spawning, because it is already rare
+            return false;
+        }
+
         BlockPos blockpos = pos.below();
         int min_dist = 300;
         List<SkyScourge> others = level.getEntitiesOfClass(SkyScourge.class, new AABB(pos.getX()-min_dist, pos.getY()-100, pos.getZ()-min_dist,

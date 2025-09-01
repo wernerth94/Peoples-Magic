@@ -4,12 +4,15 @@ import de.peoples_magic.attachments.ModAttachments;
 import de.peoples_magic.attributes.ModAttributes;
 import de.peoples_magic.payloads.sync.*;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -124,5 +127,14 @@ public class Util {
         guiGraphics.fill(x, y, x+1, max_y, color);
 
         guiGraphics.fill(max_x-1, y, max_x, max_y, color);
+    }
+
+    public static boolean is_lighting_block(LevelAccessor level, BlockPos pos) {
+        if (level.isEmptyBlock(pos)) {
+            return false;
+        }
+        else {
+            return level.getLightEmission(pos) > 0;
+        }
     }
 }

@@ -1,7 +1,7 @@
 package de.peoples_magic.entity.mini_boss;
 
-import com.google.common.collect.Lists;
 import de.peoples_magic.Config;
+import de.peoples_magic.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -78,7 +78,7 @@ public class BlazenKnight extends WitherSkeleton {
         this.ticks_since_last_shot = 0;
         this.ticks_alive = 0;
 
-        ArrayList<DyeItem> dye_list = Lists.newArrayList();
+        ArrayList<DyeItem> dye_list = new ArrayList<>();
         dye_list.add((DyeItem) Items.RED_DYE);
 
         this.setItemSlot(EquipmentSlot.HEAD, DyedItemColor.applyDyes(new ItemStack(Items.LEATHER_HELMET), dye_list));
@@ -334,7 +334,23 @@ public class BlazenKnight extends WitherSkeleton {
         if (level.getRandom().nextFloat() > Config.boss_spawn_probability) {
             return false;
         }
-        BlockPos blockpos = pos.below();
+
+        // don't spawn near lighting
+        BlockPos surface = pos.above();
+        while (!level.canSeeSky(surface) && surface.getY() < 150) {
+            surface = surface.above();
+        }
+        for (int x = surface.getX()-14; x < surface.getX()+14; x++) {
+            for (int y = surface.getY()-14; y < surface.getY()+14; y++) {
+                for (int z = surface.getZ()-14; z < surface.getZ()+14; z++) {
+
+                    if (Util.is_lighting_block(level, new BlockPos(x, y, z))) {
+                        return false;
+                    }
+                }
+            }
+        }
+
         int min_dist = 300;
         List<BlazenKnight> others = level.getEntitiesOfClass(BlazenKnight.class, new AABB(pos.getX()-min_dist, pos.getY()-50, pos.getZ()-min_dist,
                 pos.getX()+min_dist, pos.getY()+50, pos.getZ()+min_dist));
@@ -343,10 +359,13 @@ public class BlazenKnight extends WitherSkeleton {
             System.out.println("other blazen knight spawned at " + others.get(0).position());
             return false;
         }
+        BlockPos blockpos = pos.below();
         if (!level.getBlockState(blockpos).isValidSpawn(level, blockpos, EntityType.ENDERMAN)) {
             System.out.println("blazen knight cannot spawned at " + pos);
             return false;
         }
+
+//        System.out.println("blazen knight spawned at " + pos);
         return true;
     }
 
